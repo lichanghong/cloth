@@ -1,0 +1,20 @@
+PODS:
+  - Alert (1.0.4)
+  - CHBaseUtil (0.0.5)
+  - MagicalRecord (2.3.2):
+    - MagicalRecord/Core (= 2.3.2)
+  - MagicalRecord/Core (2.3.2)
+
+DEPENDENCIES:
+  - Alert (~> 1.0.4)
+  - CHBaseUtil (~> 0.0.5)
+  - MagicalRecord (~> 2.3.2)
+
+SPEC CHECKSUMS:
+  Alert: b3b0b031ad786bffc6b4d86a75c5f88752aae0e7
+  CHBaseUtil: 915475d8cee4614be5582f11b32501071eef1a28
+  MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
+
+PODFILE CHECKSUM: b3f0dfd682a05d3c9102fb9dfbae94734e376aac
+
+COCOAPODS: 1.2.1
