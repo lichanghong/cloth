@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3D2F3A402AD6812CEF3B4704 /* libPods-衣柜.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC4AE6C80BAE2593E00ECC5 /* libPods-衣柜.a */; };
+		957EBF9D1FD64C0400D4A503 /* HomeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 957EBF9C1FD64C0400D4A503 /* HomeTableViewController.m */; };
+		957EBFA01FD64FBC00D4A503 /* HomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 957EBF9F1FD64FBC00D4A503 /* HomeTableViewCell.m */; };
+		957EBFA31FD6588B00D4A503 /* HomeCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 957EBFA21FD6588B00D4A503 /* HomeCollectionView.m */; };
 		95C9C3FD1F9F2BB500ACF52D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C9C3FC1F9F2BB500ACF52D /* AppDelegate.m */; };
 		95C9C4001F9F2BB500ACF52D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C9C3FF1F9F2BB500ACF52D /* ViewController.m */; };
 		95C9C4031F9F2BB500ACF52D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95C9C4011F9F2BB500ACF52D /* Main.storyboard */; };
@@ -20,6 +23,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		957EBF9B1FD64C0400D4A503 /* HomeTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeTableViewController.h; sourceTree = "<group>"; };
+		957EBF9C1FD64C0400D4A503 /* HomeTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeTableViewController.m; sourceTree = "<group>"; };
+		957EBF9E1FD64FBC00D4A503 /* HomeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeTableViewCell.h; sourceTree = "<group>"; };
+		957EBF9F1FD64FBC00D4A503 /* HomeTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeTableViewCell.m; sourceTree = "<group>"; };
+		957EBFA11FD6588B00D4A503 /* HomeCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCollectionView.h; sourceTree = "<group>"; };
+		957EBFA21FD6588B00D4A503 /* HomeCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCollectionView.m; sourceTree = "<group>"; };
 		95C9C3F81F9F2BB500ACF52D /* 衣柜.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "衣柜.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95C9C3FB1F9F2BB500ACF52D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		95C9C3FC1F9F2BB500ACF52D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -78,6 +87,12 @@
 				95C9C41A1F9F3B4E00ACF52D /* data */,
 				95C9C3FB1F9F2BB500ACF52D /* AppDelegate.h */,
 				95C9C3FC1F9F2BB500ACF52D /* AppDelegate.m */,
+				957EBF9B1FD64C0400D4A503 /* HomeTableViewController.h */,
+				957EBF9C1FD64C0400D4A503 /* HomeTableViewController.m */,
+				957EBF9E1FD64FBC00D4A503 /* HomeTableViewCell.h */,
+				957EBF9F1FD64FBC00D4A503 /* HomeTableViewCell.m */,
+				957EBFA11FD6588B00D4A503 /* HomeCollectionView.h */,
+				957EBFA21FD6588B00D4A503 /* HomeCollectionView.m */,
 				95C9C3FE1F9F2BB500ACF52D /* ViewController.h */,
 				95C9C3FF1F9F2BB500ACF52D /* ViewController.m */,
 				95C9C4141F9F301A00ACF52D /* CollectionHeader.h */,
@@ -243,9 +258,12 @@
 			files = (
 				95C9C4001F9F2BB500ACF52D /* ViewController.m in Sources */,
 				95C9C40B1F9F2BB500ACF52D /* main.m in Sources */,
+				957EBFA01FD64FBC00D4A503 /* HomeTableViewCell.m in Sources */,
 				95C9C4131F9F2CED00ACF52D /* CollectionViewCell.m in Sources */,
+				957EBF9D1FD64C0400D4A503 /* HomeTableViewController.m in Sources */,
 				95C9C3FD1F9F2BB500ACF52D /* AppDelegate.m in Sources */,
 				95C9C4161F9F301A00ACF52D /* CollectionHeader.m in Sources */,
+				957EBFA31FD6588B00D4A503 /* HomeCollectionView.m in Sources */,
 				95C9C4191F9F3B4700ACF52D /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

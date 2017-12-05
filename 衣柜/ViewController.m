@@ -44,7 +44,7 @@ UIImagePickerControllerDelegate>
         UITextField *userNameTextField = alertController.textFields.firstObject;
         NSLog(@"衣架名称 = %@",userNameTextField.text);
         ImageEntity *entity = [ImageEntity MR_createEntity];
-        entity.sessionnum = _filePaths.count;
+//        entity.sessionnum = _filePaths.count;
         entity.sectiontitle = userNameTextField.text;
         [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
         [self.collectionView reloadData];
@@ -59,18 +59,18 @@ UIImagePickerControllerDelegate>
 }
 
 
--(NSMutableArray *)filePaths
-{
-    if (!_filePaths) {
-        _filePaths = [NSMutableArray array];
-    }
-    return _filePaths;
-}
+//-(NSMutableArray *)filePaths
+//{
+//    if (!_filePaths) {
+//        _filePaths = [NSMutableArray array];
+//    }
+//    return _filePaths;
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSArray *images = [ImageEntity MR_findAll];
-    self.filePaths = [NSMutableArray arrayWithArray:images];
+//    self.filePaths = [NSMutableArray arrayWithArray:images];
     [self.collectionView registerClass:[CollectionViewCell class] forCellWithReuseIdentifier:[CollectionViewCell identifier]];
     [self.collectionView registerClass:[CollectionHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[CollectionHeader identifier]];
 
@@ -83,34 +83,34 @@ UIImagePickerControllerDelegate>
 }
 
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return _filePaths.count;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return ((NSArray *)_filePaths[section]).count+1;
-}
+//- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+//{
+//    return _filePaths.count;
+//}
+//
+//- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+//{
+//    return ((NSArray *)_filePaths[section]).count+1;
+//}
 
 // 和UITableView类似，UICollectionView也可设置段头段尾
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-{
-    
-    if([kind isEqualToString:UICollectionElementKindSectionHeader])
-    {
-        CollectionHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[CollectionHeader identifier] forIndexPath:indexPath];
-        if(headerView == nil)
-        {
-            headerView = (id)[[UICollectionReusableView alloc] init];
-        }
-        headerView.backgroundColor = [UIColor clearColor];
-        ImageEntity *entity = [self.filePaths[indexPath.section]firstObject];
-        headerView.title.text = entity.sectiontitle;
-        return headerView;
-    }
-    return nil;
-}
+//- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+//{
+//
+//    if([kind isEqualToString:UICollectionElementKindSectionHeader])
+//    {
+//        CollectionHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[CollectionHeader identifier] forIndexPath:indexPath];
+//        if(headerView == nil)
+//        {
+//            headerView = (id)[[UICollectionReusableView alloc] init];
+//        }
+//        headerView.backgroundColor = [UIColor clearColor];
+//        ImageEntity *entity = [self.filePaths[indexPath.section]firstObject];
+//        headerView.title.text = entity.sectiontitle;
+//        return headerView;
+//    }
+//    return nil;
+//}
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
@@ -124,19 +124,19 @@ UIImagePickerControllerDelegate>
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSMutableArray *sectionItems =  nil;
-    if (self.filePaths.count>0) {
-        sectionItems = self.filePaths[indexPath.item];
-    }
-    if (sectionItems.count<=indexPath.item) {
-        NSLog(@"add...%ld",indexPath.item);
-        ImageEntity *entity = [ImageEntity MR_createEntity];
-        entity.sessionnum = @1;
-        [self takePhoto];
-    }
-}
+//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    NSMutableArray *sectionItems =  nil;
+//    if (self.filePaths.count>0) {
+//        sectionItems = self.filePaths[indexPath.item];
+//    }
+//    if (sectionItems.count<=indexPath.item) {
+//        NSLog(@"add...%ld",indexPath.item);
+//        ImageEntity *entity = [ImageEntity MR_createEntity];
+//        entity.sessionnum = @1;
+//        [self takePhoto];
+//    }
+//}
 - (void)takePhoto
 {
     __weak ViewController *weakself = self;

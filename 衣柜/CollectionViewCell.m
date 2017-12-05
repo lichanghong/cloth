@@ -15,7 +15,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self addSubview:self.imageView];
-        self.imageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+//        self.imageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
     }
     return self;
 }
@@ -30,6 +30,6 @@
 }
 + (NSString *)identifier
 {
-    return @"basecollectionviewcellIdentifier";
+    return @"CollectionViewCell";
 }
 @end
