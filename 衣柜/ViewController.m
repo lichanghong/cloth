@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import "CollectionViewCell.h"
-#import "CollectionHeader.h"
 #import <CHBaseUtil.h>
 #import <Alert.h>
 #import<CommonCrypto/CommonDigest.h>
@@ -59,27 +58,9 @@ UIImagePickerControllerDelegate>
 }
 
 
-//-(NSMutableArray *)filePaths
-//{
-//    if (!_filePaths) {
-//        _filePaths = [NSMutableArray array];
-//    }
-//    return _filePaths;
-//}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSArray *images = [ImageEntity MR_findAll];
-//    self.filePaths = [NSMutableArray arrayWithArray:images];
-    [self.collectionView registerClass:[CollectionViewCell class] forCellWithReuseIdentifier:[CollectionViewCell identifier]];
-    [self.collectionView registerClass:[CollectionHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[CollectionHeader identifier]];
-
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    [layout setItemSize:CGSizeMake(80, 80)];
-    [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    [layout setSectionInset:UIEdgeInsetsMake(2, 20, 0, 20)];
-    [self.collectionView setCollectionViewLayout:layout];
-    // Do any additional setup after loading the view, typically from a nib.
+ 
 }
 
 

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface HomeCollectionView : UICollectionView<UICollectionViewDelegate,
-UICollectionViewDataSource>
+UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 
 @end

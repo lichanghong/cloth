@@ -8,16 +8,22 @@
 
 #import "HomeTableViewController.h"
 #import <CHBaseUtil.h>
+#import "HomeAddAlert.h"
+
 @interface HomeTableViewController ()
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *add;
 
 @end
 
 @implementation HomeTableViewController
+- (IBAction)handleAction:(id)sender {
+    if (sender == self.add) {
+        [HomeAddAlert alertInVC:self success:^{
+            
+        }];
+    }
+}
 
-//- (void)viewDidLayoutSubviews
-//{
-////    self.collectionViewH.constant = KScreenWidth;
-//}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Uncomment the following line to preserve selection between presentations.
@@ -27,6 +33,8 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -35,7 +43,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 10;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -44,7 +52,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return @"hehe";
+    return [NSString stringWithFormat:@"hehe%d",section];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

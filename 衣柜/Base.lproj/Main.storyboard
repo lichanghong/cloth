@@ -82,7 +82,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="47" y="209"/>
+            <point key="canvasLocation" x="90" y="176"/>
         </scene>
         <!--衣架-->
         <scene sceneID="K03-en-Kg3">
@@ -96,19 +96,19 @@
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HomeTableViewCell" rowHeight="129" id="mYN-86-jYD" customClass="HomeTableViewCell">
                                 <rect key="frame" x="0.0" y="28" width="375" height="129"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mYN-86-jYD" id="FDp-yc-7yQ" customClass="HomeCollectionView">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mYN-86-jYD" id="FDp-yc-7yQ">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="128.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IHl-0m-TEP" customClass="HomeCollectionView" customModule="衣柜">
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IHl-0m-TEP" customClass="HomeCollectionView">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
-                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="375" id="Ahj-72-vrQ"/>
-                                                <constraint firstAttribute="height" constant="128" id="Ztc-vO-DhQ"/>
+                                                <constraint firstAttribute="height" constant="128" id="OZ5-ha-35b"/>
+                                                <constraint firstAttribute="width" constant="375" id="PEn-pi-mkj"/>
                                             </constraints>
-                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dIM-Lr-8vb">
-                                                <size key="itemSize" width="100" height="100"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="5" id="dIM-Lr-8vb">
+                                                <size key="itemSize" width="128" height="128"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -122,18 +122,20 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </view>
                                                     <color key="backgroundColor" red="0.31995985243055558" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <size key="customSize" width="128" height="128"/>
                                                 </collectionViewCell>
                                             </cells>
                                         </collectionView>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.72696942090000005" green="0.69426125289999996" blue="0.35904538629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
-                                        <constraint firstItem="IHl-0m-TEP" firstAttribute="top" secondItem="FDp-yc-7yQ" secondAttribute="top" id="QDU-Km-5sJ"/>
-                                        <constraint firstItem="IHl-0m-TEP" firstAttribute="leading" secondItem="FDp-yc-7yQ" secondAttribute="leading" id="fc4-si-gZT"/>
+                                        <constraint firstItem="IHl-0m-TEP" firstAttribute="top" secondItem="FDp-yc-7yQ" secondAttribute="top" id="7m9-Lx-gG7"/>
+                                        <constraint firstAttribute="bottom" secondItem="IHl-0m-TEP" secondAttribute="bottom" constant="0.5" id="87w-ex-yeG"/>
+                                        <constraint firstItem="IHl-0m-TEP" firstAttribute="leading" secondItem="FDp-yc-7yQ" secondAttribute="leading" id="bPV-en-AzK"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.18823529410000001" green="0.51372549020000002" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="collectionViewW" destination="PEn-pi-mkj" id="bWV-vb-KIl"/>
+                                    <outlet property="homeCollectionView" destination="IHl-0m-TEP" id="17j-2q-7QJ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -141,7 +143,16 @@
                             <outlet property="delegate" destination="vep-Lv-m4W" id="0xl-oe-sUc"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="衣架" id="eho-1Q-gto"/>
+                    <navigationItem key="navigationItem" title="衣架" id="eho-1Q-gto">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="P4W-XS-1LZ">
+                            <connections>
+                                <action selector="handleAction:" destination="vep-Lv-m4W" id="bmB-HL-F3Y"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="add" destination="P4W-XS-1LZ" id="key-CH-44e"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gs3-6B-TMJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

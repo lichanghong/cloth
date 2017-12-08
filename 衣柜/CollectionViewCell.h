@@ -12,4 +12,5 @@
 + (NSString *)identifier;
 @property (nonatomic,strong)UIImageView *imageView;
 
+
 @end

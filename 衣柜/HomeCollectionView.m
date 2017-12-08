@@ -10,9 +10,6 @@
 #import "CollectionViewCell.h"
 #import <CHBaseUtil.h>
 
-@interface HomeCollectionView()
-
-@end
 
 @implementation HomeCollectionView
 
@@ -22,10 +19,11 @@
     if (self) {
         self.delegate = self;
         self.dataSource = self;
-        self.backgroundColor = [UIColor grayColor];
+
     }
     return self;
 }
+ 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -37,12 +35,11 @@
     return 1;
 }
 
-
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CollectionViewCell *collVC = [collectionView dequeueReusableCellWithReuseIdentifier:[CollectionViewCell identifier] forIndexPath:indexPath];
     if (collVC) {
-        collVC.backgroundColor = [UIColor redColor];
+        collVC.backgroundColor = RandomColor;
     }
     return collVC;
 }

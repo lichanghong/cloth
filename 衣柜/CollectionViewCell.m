@@ -20,10 +20,20 @@
     return self;
 }
 
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self addSubview:self.imageView];
+
+    }
+    return self;
+}
+
 - (UIImageView *)imageView
 {
     if (!_imageView) {
-        _imageView = [[UIImageView alloc]init];
+        _imageView = [[UIImageView alloc]initWithFrame:self.bounds];
         _imageView.image = [UIImage imageNamed:@"add"];
     }
     return _imageView;
