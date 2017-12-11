@@ -17,10 +17,11 @@
 
 
 @interface WardrobesItem : KeyedArchiveObject
+@property (nonatomic,assign)NSInteger index;
 @property (nonatomic,assign)NSInteger createTime;
 @property (nonatomic,strong)NSString *title;
 @property (nonatomic,strong)NSMutableArray *wardrobesPaths;
 
-+ (WardrobesItem *)addWardrobesItemWithTitle:(NSString *)title;
++ (WardrobesItem *)addWardrobesItemWithTitle:(NSString *)title index:(NSInteger)index;
 
 @end

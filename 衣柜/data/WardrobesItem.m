@@ -16,10 +16,11 @@
 
 @implementation WardrobesItem
 
-+ (WardrobesItem *)addWardrobesItemWithTitle:(NSString *)title
++ (WardrobesItem *)addWardrobesItemWithTitle:(NSString *)title index:(NSInteger)index
 {
     WardrobesItem *item = [[WardrobesItem alloc]init];
     item.title = title;
+    item.index = index;
     item.createTime = time(NULL);
     item.wardrobesPaths = [NSMutableArray array];
     return item;

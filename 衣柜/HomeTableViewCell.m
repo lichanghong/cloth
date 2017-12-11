@@ -34,6 +34,11 @@
     [super updateConstraints];
     self.collectionViewW.constant = self.contentView.bounds.size.width;
 }
+
+- (void)setTag:(NSInteger)tag
+{
+    self.homeCollectionView.tag = tag;
+}
  
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

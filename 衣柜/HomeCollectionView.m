@@ -9,7 +9,8 @@
 #import "HomeCollectionView.h"
 #import "CollectionViewCell.h"
 #import <CHBaseUtil.h>
-
+#import "WardrobesData.h"
+#import "WardrobesItem.h"
 
 @implementation HomeCollectionView
 
@@ -27,7 +28,9 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 20;
+    NSMutableArray *wardrobes = [WardrobesData wardrobeData].wardrobes;
+    WardrobesItem *item = wardrobes[section];
+    return item.wardrobesPaths.count==0?1:item.wardrobesPaths.count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -42,6 +45,18 @@
         collVC.backgroundColor = RandomColor;
     }
     return collVC;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSMutableArray *wardrobes = [WardrobesData wardrobeData].wardrobes;
+    WardrobesItem *item = wardrobes[collectionView.tag];
+    if (indexPath.item == item.wardrobesPaths.count) {
+        NSLog(@"%@ add.....",item.title);
+    }
+    else{
+        NSLog(@"show.....%d   %d",indexPath.item,item.wardrobesPaths.count);
+    }
 }
 /*
 // Only override drawRect: if you perform custom drawing.

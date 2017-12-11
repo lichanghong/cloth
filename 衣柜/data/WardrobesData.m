@@ -45,7 +45,7 @@
 + (WardrobesData *)addWardrobesItemWithTitle:(NSString *)title
 {
     WardrobesData *data = [WardrobesData wardrobeData];
-    WardrobesItem *item = [WardrobesItem addWardrobesItemWithTitle:title];
+    WardrobesItem *item = [WardrobesItem addWardrobesItemWithTitle:title index:data.wardrobes.count];
     [data.wardrobes addObject:item];
     if ([NSKeyedArchiver archiveRootObject:data toFile:[self pathOfWardrobeData]]) {
         return data;
