@@ -34,9 +34,10 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSMutableArray *wardrobes = [WardrobesData wardrobeData].wardrobes;
-    WardrobesItem *item = wardrobes[section];
-    return item.wardrobesPaths.count==0?1:item.wardrobesPaths.count;
+    return 2;
+//    NSMutableArray *wardrobes = [WardrobesData wardrobeData].wardrobes;
+//    WardrobesItem *item = wardrobes[section];
+//    return item.wardrobesPaths.count==0?1:item.wardrobesPaths.count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -55,16 +56,16 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSMutableArray *wardrobes = [WardrobesData wardrobeData].wardrobes;
-    WardrobesItem *item = wardrobes[collectionView.tag];
-    if (indexPath.item == item.wardrobesPaths.count) {
-        NSLog(@"%@ add.....",item.title);
-        self.takePhotoItem = item;
-        [self takePhoto];
-    }
-    else{
-        NSLog(@"show.....%d   %d",indexPath.item,item.wardrobesPaths.count);
-    }
+//    NSMutableArray *wardrobes = [WardrobesData wardrobeData].wardrobes;
+//    WardrobesItem *item = wardrobes[collectionView.tag];
+//    if (indexPath.item == item.wardrobesPaths.count) {
+//        NSLog(@"%@ add.....",item.title);
+//        self.takePhotoItem = item;
+//        [self takePhoto];
+//    }
+//    else{
+//        NSLog(@"show.....%d   %d",indexPath.item,item.wardrobesPaths.count);
+//    }
 }
 
 
@@ -120,10 +121,10 @@
         }
     
         WardrobeItemDetail *detail = [WardrobeItemDetail createDetailWithInfo:info ImageData:data];
-        NSMutableArray *wardrobes = [WardrobesData wardrobeData].wardrobes;
-        WardrobesItem *item = wardrobes[self.tag];
-        [item.wardrobesPaths addObject:detail];
-        [self reloadData];
+//        NSMutableArray *wardrobes = [WardrobesData wardrobeData].wardrobes;
+//        WardrobesItem *item = wardrobes[self.tag];
+//        [item.wardrobesPaths addObject:detail];
+//        [self reloadData];
         //关闭相册界面
         [picker dismissViewControllerAnimated:YES completion:nil];
         

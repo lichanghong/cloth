@@ -11,6 +11,7 @@
 #import "HomeAddAlert.h"
 #import "WardrobesData.h"
 #import "WardrobesItem.h"
+#import "WardrobesEntity+CoreDataClass.h"
 
 @interface HomeTableViewController ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *add;
@@ -41,7 +42,8 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [WardrobesData wardrobeData].wardrobes.count;
+    NSInteger count = [WardrobesData count];
+    return count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -50,8 +52,9 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    WardrobesItem *item = [WardrobesData wardrobeData].wardrobes[section];
-    return [NSString stringWithFormat:@"%@",item.title];
+    NSArray *entities = [WardrobesData entities];
+    WardrobesEntity*entity = [entities objectAtIndex:section];
+    return [NSString stringWithFormat:@"%@",entity.title];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

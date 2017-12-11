@@ -10,9 +10,11 @@
 #import "KeyedArchiveObject.h"
 
 @interface WardrobesData : KeyedArchiveObject
-@property (nonatomic,strong)NSMutableArray *wardrobes;
-+ (WardrobesData *)addWardrobesItemWithTitle:(NSString *)title;
 
++ (void)addWardrobesItemWithTitle:(NSString *)title;
+
++ (NSInteger)count;
++ (NSArray *)entities;
 + (NSString *)pathOfWardrobeData;
 
 + (instancetype)wardrobeData;

@@ -26,18 +26,18 @@
     //文件管理器
     NSFileManager *fileManager = [NSFileManager defaultManager];
     //把刚刚图片转换的data对象拷贝至沙盒中并保存为image.png
-    BOOL isDic=NO;
-    if(!([fileManager fileExistsAtPath:DocumentsPath isDirectory:&isDic] && isDic))
-    {
-        [fileManager createDirectoryAtPath:DocumentsPath withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-    NSString *name = [self md5:[[info objectForKey:@"UIImagePickerControllerImageURL"]
-                                absoluteString]];
-    name = [NSString stringWithFormat:@"/%ld_%@.png",time(NULL),name];
-    NSString *imagePath = [DocumentsPath stringByAppendingString:name];
-    if ([fileManager createFileAtPath:imagePath contents:data attributes:nil]) {
-        return imagePath;
-    }
+//    BOOL isDic=NO;
+//    if(!([fileManager fileExistsAtPath:DocumentsPath isDirectory:&isDic] && isDic))
+//    {
+//        [fileManager createDirectoryAtPath:DocumentsPath withIntermediateDirectories:YES attributes:nil error:nil];
+//    }
+//    NSString *name = [self md5:[[info objectForKey:@"UIImagePickerControllerImageURL"]
+//                                absoluteString]];
+//    name = [NSString stringWithFormat:@"/%ld_%@.png",time(NULL),name];
+//    NSString *imagePath = [DocumentsPath stringByAppendingString:name];
+//    if ([fileManager createFileAtPath:imagePath contents:data attributes:nil]) {
+//        return imagePath;
+//    }
     return nil;
 }
 

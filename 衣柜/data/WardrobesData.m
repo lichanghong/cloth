@@ -8,23 +8,27 @@
 
 #import "WardrobesData.h"
 #import "WardrobesItem.h"
+#import "WardrobesEntity+CoreDataClass.h"
+#import <MagicalRecord/MagicalRecord.h>
 
 @implementation WardrobesData
 
-- (instancetype)init
++ (NSInteger)count
 {
-    self = [super init];
-    if (self) {
-        self.wardrobes = [NSMutableArray array];
-    }
-    return self;
+    return [WardrobesEntity MR_countOfEntities];
+}
+
++ (NSArray *)entities
+{
+   NSArray *entitys = [WardrobesEntity MR_findAllSortedBy:@"index"
+                     ascending:YES];
+    return entitys;
 }
 
 + (instancetype)wardrobeData
 {
     static WardrobesData *single=nil;
     @synchronized(self){
-        single = [NSKeyedUnarchiver unarchiveObjectWithFile:[self pathOfWardrobeData]];
         if (!single) {
             single = [[WardrobesData alloc]init];
         }
@@ -42,16 +46,13 @@
     return [NSString stringWithFormat:@"%@/wardrobe.archiver",pathDoc];
 }
 
-+ (WardrobesData *)addWardrobesItemWithTitle:(NSString *)title
++ (void)addWardrobesItemWithTitle:(NSString *)title
 {
-    WardrobesData *data = [WardrobesData wardrobeData];
-    WardrobesItem *item = [WardrobesItem addWardrobesItemWithTitle:title index:data.wardrobes.count];
-    [data.wardrobes addObject:item];
-    if ([NSKeyedArchiver archiveRootObject:data toFile:[self pathOfWardrobeData]]) {
-        return data;
-    }
-    else NSLog(@"addWardrobesItemWithTitle:%@ error",title);
-    return nil;
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext * _Nonnull localContext) {
+        WardrobesEntity *entity = [WardrobesEntity MR_createEntityInContext:localContext];
+        entity.index = (int32_t)[WardrobesData count];
+        entity.title = title;
+    }];
 }
 
 @end

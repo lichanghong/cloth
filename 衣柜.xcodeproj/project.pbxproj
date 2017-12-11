@@ -15,6 +15,7 @@
 		957EBFFC1FDE18EE00D4A503 /* WardrobesData.m in Sources */ = {isa = PBXBuildFile; fileRef = 957EBFFB1FDE18EE00D4A503 /* WardrobesData.m */; };
 		957EBFFF1FDE199600D4A503 /* WardrobesItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 957EBFFE1FDE199600D4A503 /* WardrobesItem.m */; };
 		957EC0241FDE486D00D4A503 /* KeyedArchiveObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 957EC0231FDE486C00D4A503 /* KeyedArchiveObject.m */; };
+		95A073781FDE8C150019541A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95A073761FDE8C150019541A /* Model.xcdatamodeld */; };
 		95C9C3FD1F9F2BB500ACF52D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C9C3FC1F9F2BB500ACF52D /* AppDelegate.m */; };
 		95C9C4001F9F2BB500ACF52D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C9C3FF1F9F2BB500ACF52D /* ViewController.m */; };
 		95C9C4031F9F2BB500ACF52D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95C9C4011F9F2BB500ACF52D /* Main.storyboard */; };
@@ -22,7 +23,6 @@
 		95C9C4081F9F2BB500ACF52D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95C9C4061F9F2BB500ACF52D /* LaunchScreen.storyboard */; };
 		95C9C40B1F9F2BB500ACF52D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C9C40A1F9F2BB500ACF52D /* main.m */; };
 		95C9C4131F9F2CED00ACF52D /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C9C4121F9F2CED00ACF52D /* CollectionViewCell.m */; };
-		95C9C4191F9F3B4700ACF52D /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95C9C4171F9F3B4700ACF52D /* Model.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +40,7 @@
 		957EBFFE1FDE199600D4A503 /* WardrobesItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WardrobesItem.m; sourceTree = "<group>"; };
 		957EC0221FDE486C00D4A503 /* KeyedArchiveObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyedArchiveObject.h; sourceTree = "<group>"; };
 		957EC0231FDE486C00D4A503 /* KeyedArchiveObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyedArchiveObject.m; sourceTree = "<group>"; };
+		95A073771FDE8C150019541A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		95C9C3F81F9F2BB500ACF52D /* 衣柜.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "衣柜.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95C9C3FB1F9F2BB500ACF52D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		95C9C3FC1F9F2BB500ACF52D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -52,7 +53,6 @@
 		95C9C40A1F9F2BB500ACF52D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		95C9C4111F9F2CED00ACF52D /* CollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
 		95C9C4121F9F2CED00ACF52D /* CollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
-		95C9C4181F9F3B4700ACF52D /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		95C9C41B1F9F3CE000ACF52D /* 衣柜-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "衣柜-Bridging-Header.h"; sourceTree = "<group>"; };
 		9DC4AE6C80BAE2593E00ECC5 /* libPods-衣柜.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-衣柜.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A40BC178517234D76149B469 /* Pods-衣柜.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-衣柜.debug.xcconfig"; path = "Pods/Target Support Files/Pods-衣柜/Pods-衣柜.debug.xcconfig"; sourceTree = "<group>"; };
@@ -128,13 +128,13 @@
 		95C9C41A1F9F3B4E00ACF52D /* data */ = {
 			isa = PBXGroup;
 			children = (
-				95C9C4171F9F3B4700ACF52D /* Model.xcdatamodeld */,
 				957EBFFA1FDE18EE00D4A503 /* WardrobesData.h */,
 				957EBFFB1FDE18EE00D4A503 /* WardrobesData.m */,
 				957EBFFD1FDE199600D4A503 /* WardrobesItem.h */,
 				957EBFFE1FDE199600D4A503 /* WardrobesItem.m */,
 				957EC0221FDE486C00D4A503 /* KeyedArchiveObject.h */,
 				957EC0231FDE486C00D4A503 /* KeyedArchiveObject.m */,
+				95A073761FDE8C150019541A /* Model.xcdatamodeld */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -290,7 +290,7 @@
 				957EBFFC1FDE18EE00D4A503 /* WardrobesData.m in Sources */,
 				957EBFA31FD6588B00D4A503 /* HomeCollectionView.m in Sources */,
 				957EC0241FDE486D00D4A503 /* KeyedArchiveObject.m in Sources */,
-				95C9C4191F9F3B4700ACF52D /* Model.xcdatamodeld in Sources */,
+				95A073781FDE8C150019541A /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,12 +481,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		95C9C4171F9F3B4700ACF52D /* Model.xcdatamodeld */ = {
+		95A073761FDE8C150019541A /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				95C9C4181F9F3B4700ACF52D /* Model.xcdatamodel */,
+				95A073771FDE8C150019541A /* Model.xcdatamodel */,
 			);
-			currentVersion = 95C9C4181F9F3B4700ACF52D /* Model.xcdatamodel */;
+			currentVersion = 95A073771FDE8C150019541A /* Model.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
