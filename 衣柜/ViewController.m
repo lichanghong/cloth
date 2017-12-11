@@ -11,7 +11,6 @@
 #import <CHBaseUtil.h>
 #import <Alert.h>
 #import<CommonCrypto/CommonDigest.h>
-#import "ImageEntity+CoreDataClass.h"
 #import <MagicalRecord/MagicalRecord.h>
 
 @interface ViewController ()<UICollectionViewDelegate,
@@ -32,29 +31,7 @@ UIImagePickerControllerDelegate>
 }
 
 - (IBAction)addSection:(id)sender {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"添加衣架" preferredStyle:UIAlertControllerStyleAlert];
-    //增加取消按钮；
-    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-    }]];
-    
-    //增加确定按钮；
-    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        //获取第1个输入框；
-        UITextField *userNameTextField = alertController.textFields.firstObject;
-        NSLog(@"衣架名称 = %@",userNameTextField.text);
-        ImageEntity *entity = [ImageEntity MR_createEntity];
-//        entity.sessionnum = _filePaths.count;
-        entity.sectiontitle = userNameTextField.text;
-        [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
-        [self.collectionView reloadData];
-    }]];
-    
-    //定义第一个输入框；
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"给衣架起一个名称";
-    }];
-    
-    [self presentViewController:alertController animated:true completion:nil];
+
 }
 
 

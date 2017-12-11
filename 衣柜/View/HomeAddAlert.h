@@ -11,6 +11,6 @@
 
 @interface HomeAddAlert : NSObject
 
-+ (void)alertInVC:(UIViewController *)vc success:(void(^)(void))success;
++ (void)alertInVC:(UIViewController *)vc success:(void (^)(NSString *title))success;
 
 @end

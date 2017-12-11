@@ -70,11 +70,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="衣架" id="g7h-Es-eGY">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Ye4-b8-pxe">
-                            <connections>
-                                <action selector="addSection:" destination="BYZ-38-t0r" id="xCB-Tt-iJk"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Ye4-b8-pxe"/>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="MnN-sC-u5s" id="eRU-Kh-ope"/>

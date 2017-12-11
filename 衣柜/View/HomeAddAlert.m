@@ -11,7 +11,7 @@
 
 
 @implementation HomeAddAlert
-+ (void)alertInVC:(UIViewController *)vc success:(void (^)(void))success
++ (void)alertInVC:(UIViewController *)vc success:(void (^)(NSString *title))success
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"添加衣架" preferredStyle:UIAlertControllerStyleAlert];
     //增加取消按钮；
@@ -26,9 +26,8 @@
             [[UIApplication sharedApplication].keyWindow makeToast:@"保存失败，名字太长"];
             return;
         }
-        NSLog(@"衣架名称 = %@",userNameTextField.text);
         [[UIApplication sharedApplication].keyWindow  makeToast:@"保存成功"];
-        success();
+        success(userNameTextField.text);
     }]];
     
     //定义第一个输入框；

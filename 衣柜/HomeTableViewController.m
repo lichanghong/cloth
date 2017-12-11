@@ -9,6 +9,8 @@
 #import "HomeTableViewController.h"
 #import <CHBaseUtil.h>
 #import "HomeAddAlert.h"
+#import "WardrobesData.h"
+#import "WardrobesItem.h"
 
 @interface HomeTableViewController ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *add;
@@ -17,23 +19,19 @@
 
 @implementation HomeTableViewController
 - (IBAction)handleAction:(id)sender {
+    __weak typeof(self) weakself = self;
     if (sender == self.add) {
-        [HomeAddAlert alertInVC:self success:^{
-            
+        [HomeAddAlert alertInVC:self success:^(NSString *title) {
+            [WardrobesData addWardrobesItemWithTitle:title];
+            [weakself.tableView reloadData];
         }];
     }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -43,7 +41,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 10;
+    return [WardrobesData wardrobeData].wardrobes.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -52,7 +50,8 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return [NSString stringWithFormat:@"hehe%d",section];
+    WardrobesItem *item = [WardrobesData wardrobeData].wardrobes[section];
+    return [NSString stringWithFormat:@"%@",item.title];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
