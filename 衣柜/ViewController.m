@@ -41,95 +41,7 @@ UIImagePickerControllerDelegate>
 }
 
 
-//- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-//{
-//    return _filePaths.count;
-//}
-//
-//- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-//{
-//    return ((NSArray *)_filePaths[section]).count+1;
-//}
 
-// 和UITableView类似，UICollectionView也可设置段头段尾
-//- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-//{
-//
-//    if([kind isEqualToString:UICollectionElementKindSectionHeader])
-//    {
-//        CollectionHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[CollectionHeader identifier] forIndexPath:indexPath];
-//        if(headerView == nil)
-//        {
-//            headerView = (id)[[UICollectionReusableView alloc] init];
-//        }
-//        headerView.backgroundColor = [UIColor clearColor];
-//        ImageEntity *entity = [self.filePaths[indexPath.section]firstObject];
-//        headerView.title.text = entity.sectiontitle;
-//        return headerView;
-//    }
-//    return nil;
-//}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
-{
-    return (CGSize){KScreenWidth,44};
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[CollectionViewCell identifier] forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor redColor];
-    return cell;
-}
-
-//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    NSMutableArray *sectionItems =  nil;
-//    if (self.filePaths.count>0) {
-//        sectionItems = self.filePaths[indexPath.item];
-//    }
-//    if (sectionItems.count<=indexPath.item) {
-//        NSLog(@"add...%ld",indexPath.item);
-//        ImageEntity *entity = [ImageEntity MR_createEntity];
-//        entity.sessionnum = @1;
-//        [self takePhoto];
-//    }
-//}
-- (void)takePhoto
-{
-    __weak ViewController *weakself = self;
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *_Nonnull action) {
-        
-    }];
-    
-    UIAlertAction *camera = [UIAlertAction actionWithTitle:@"打开相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-        imagePicker.delegate = self;
-        if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-            imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        }
-//        [self presentViewController:imagePicker animated:YEScompletion:nil];
-        
-    }];
-    
-    UIAlertAction *picture = [UIAlertAction actionWithTitle:@"相册中选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        
-        UIImagePickerController *pickerImage = [[UIImagePickerController alloc] init];
-        if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-            pickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            pickerImage.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:pickerImage.sourceType];
-            
-        }
-        pickerImage.delegate = self;
-        pickerImage.allowsEditing = NO;
-        [weakself presentViewController:pickerImage animated:YES completion:nil];
-    }];
-    [alertVc addAction:cancle];
-    [alertVc addAction:camera];
-    [alertVc addAction:picture];
-    [self presentViewController:alertVc animated:YES completion:nil];
-}
 
 // 选择图片
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -171,8 +83,7 @@ UIImagePickerControllerDelegate>
         //关闭相册界面
         [picker dismissViewControllerAnimated:YES completion:nil];
         //加在视图中
-//        [self.mineView.headerButton setBackgroundImage:image forState:(UIControlStateNormal)];
-        
+ 
     }
 }
 // 取消选取图片
@@ -183,31 +94,6 @@ UIImagePickerControllerDelegate>
 
 
 
-- (void)addClick
-{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"添加图片" preferredStyle:UIAlertControllerStyleAlert];
-    //增加取消按钮；
-    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-    }]];
-    
-    //增加确定按钮；
-    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        //获取第1个输入框；
-        UITextField *userNameTextField = alertController.textFields.firstObject;
-        NSLog(@"支付密码 = %@",userNameTextField.text);
-        
-    }]];
-    
-    
-    
-    //定义第一个输入框；
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"添加图片";
-        
-    }];
-    
-    [self presentViewController:alertController animated:true completion:nil];
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

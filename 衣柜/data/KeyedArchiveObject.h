@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import<CommonCrypto/CommonDigest.h>
 
 @interface KeyedArchiveObject : NSObject<NSCoding>
-
++ (NSString *) md5:(NSString *) input ;
 @end

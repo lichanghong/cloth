@@ -11,8 +11,11 @@
 
 @interface WardrobeItemDetail : KeyedArchiveObject
 @property (nonatomic,strong)NSString *brief;
-@property (nonatomic,strong)NSString *path;
+@property (nonatomic,strong)NSString *imagePath;
 
++ (instancetype)createDetailWithInfo:(NSDictionary<NSString *,id> *)info ImageData:(NSData *)data;
+
+ 
 @end
 
 
