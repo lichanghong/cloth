@@ -15,8 +15,11 @@
 #import <MagicalRecord/MagicalRecord.h>
 #import "DetailEntity+CoreDataClass.h"
 #import "UIImage+Orientation.h"
+#import <KSPhotoBrowser.h>
+#import <TZImagePickerController.h>
 
-@interface HomeCollectionView()
+
+@interface HomeCollectionView()<TZImagePickerControllerDelegate>
 @property (nonatomic,strong)WardrobesEntity *takePhotoItem;
 @end
 
@@ -83,8 +86,21 @@
         [self takePhoto];
     }
     else{
-        DetailEntity *detail = [details.allObjects objectAtIndex:indexPath.item];
+        NSMutableArray *items = @[].mutableCopy;
+        for (int i=0; i<details.allObjects.count; i++) {
+            DetailEntity *detail = [details.allObjects objectAtIndex:i];
+            NSString *imageP = [[WardrobesData cachePath] stringByAppendingPathComponent:detail.imagePath];
+            UIImage *image = [UIImage imageWithContentsOfFile:imageP];
 
+            CollectionViewCell *cell = (id)[collectionView cellForItemAtIndexPath:[NSIndexPath indexPathWithIndex:i]];
+            UIImageView *imageView = cell.imageView;
+            KSPhotoItem *item = [KSPhotoItem itemWithSourceView:imageView image:image];
+            [items addObject:item];
+        }
+     
+        KSPhotoBrowser *browser = [KSPhotoBrowser browserWithPhotoItems:items selectedIndex:indexPath.item];
+        [browser showFromViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
+        
     }
 }
 
@@ -92,7 +108,6 @@
 - (void)takePhoto
 {
     UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
-    __weak HomeCollectionView *weakself = self;
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *_Nonnull action) {
         
@@ -109,15 +124,10 @@
     
     UIAlertAction *picture = [UIAlertAction actionWithTitle:@"相册中选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
-        UIImagePickerController *pickerImage = [[UIImagePickerController alloc] init];
-        if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-            pickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            pickerImage.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:pickerImage.sourceType];
-            
-        }
-        pickerImage.delegate = self;
-        pickerImage.allowsEditing = NO;
-        [rootVC presentViewController:pickerImage animated:YES completion:nil];
+        TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:9 delegate:self];
+        // You can get the photos by block, the same as by delegate.
+        // 你可以通过block或者代理，来得到用户选择的照片.
+        [rootVC presentViewController:imagePickerVc animated:YES completion:nil];
     }];
     [alertVc addAction:cancle];
     [alertVc addAction:camera];
@@ -125,42 +135,76 @@
     [rootVC presentViewController:alertVc animated:YES completion:nil];
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+- (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto
 {
-    NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
-    if ([type isEqualToString:@"public.image"]) {
-        UIImage* image = [info objectForKey:UIImagePickerControllerOriginalImage];
-        image = [image fixOrientation:image];
-        NSData *data;
-        if (UIImagePNGRepresentation(image) ==nil)
-        {
-            data = UIImageJPEGRepresentation(image,1.0);
-        }
-        else
-        {
-            data = UIImagePNGRepresentation(image);
-        }
-        
-        
-        NSArray *entities = [WardrobesData entities];
-        WardrobesEntity *entity = [entities objectAtIndex:self.tag];
-        NSString *imagePath = [HomeCollectionView createImageWithInfo:info ImageData:data];
-        __weak HomeCollectionView *weakself = self;
-        
-        DetailEntity *detail = [DetailEntity MR_createEntityInContext:[entity managedObjectContext]];
-        [detail setBrief:@""];
-        detail.imagePath = [[imagePath componentsSeparatedByString:@"Caches/"] lastObject];
-        [entity addDetailObject:detail];
-        [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
+    NSArray *entities = [WardrobesData entities];
+    WardrobesEntity *entity = [entities objectAtIndex:self.tag];
 
-        [weakself reloadData];
-
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        for (UIImage *oimage  in photos) {
+            UIImage *image = [oimage fixOrientation:oimage];
+            NSData *data;
+            if (UIImagePNGRepresentation(image) ==nil)
+            {
+                data = UIImageJPEGRepresentation(image,1.0);
+            }
+            else
+            {
+                data = UIImagePNGRepresentation(image);
+            }
+            NSString *imagePath = [HomeCollectionView createImageWithImageData:data];
+            DetailEntity *detail = [DetailEntity MR_createEntityInContext:[entity managedObjectContext]];
+            [detail setBrief:@""];
+            detail.imagePath = [[imagePath componentsSeparatedByString:@"Caches/"] lastObject];
+            [entity addDetailObject:detail];
+            [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
+            
+        }
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self reloadData];
+        });
         //关闭相册界面
         [picker dismissViewControllerAnimated:YES completion:nil];
-    }
+    });
+   
 }
 
-+ (NSString *)createImageWithInfo:(NSDictionary<NSString *,id> *)info ImageData:(NSData *)data
+//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+//{
+//    NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
+//    if ([type isEqualToString:@"public.image"]) {
+//        UIImage* image = [info objectForKey:UIImagePickerControllerOriginalImage];
+//        image = [image fixOrientation:image];
+//        NSData *data;
+//        if (UIImagePNGRepresentation(image) ==nil)
+//        {
+//            data = UIImageJPEGRepresentation(image,1.0);
+//        }
+//        else
+//        {
+//            data = UIImagePNGRepresentation(image);
+//        }
+//
+//
+//        NSArray *entities = [WardrobesData entities];
+//        WardrobesEntity *entity = [entities objectAtIndex:self.tag];
+//        NSString *imagePath = [HomeCollectionView createImageWithInfo:info ImageData:data];
+//        __weak HomeCollectionView *weakself = self;
+//
+//        DetailEntity *detail = [DetailEntity MR_createEntityInContext:[entity managedObjectContext]];
+//        [detail setBrief:@""];
+//        detail.imagePath = [[imagePath componentsSeparatedByString:@"Caches/"] lastObject];
+//        [entity addDetailObject:detail];
+//        [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
+//
+//        [weakself reloadData];
+//
+//        //关闭相册界面
+//        [picker dismissViewControllerAnimated:YES completion:nil];
+//    }
+//}
+
++ (NSString *)createImageWithImageData:(NSData *)data
 {
     NSString *cachePath = [[WardrobesData cachePath] stringByAppendingPathComponent:@"images"];
     //文件管理器
