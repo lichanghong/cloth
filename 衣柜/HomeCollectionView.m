@@ -10,7 +10,6 @@
 #import "CollectionViewCell.h"
 #import <CHBaseUtil.h>
 #import "WardrobesData.h"
-#import "WardrobesItem.h"
 #import<CommonCrypto/CommonDigest.h>
 #import "WardrobesEntity+CoreDataClass.h"
 #import <MagicalRecord/MagicalRecord.h>

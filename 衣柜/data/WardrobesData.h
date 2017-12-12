@@ -7,10 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "KeyedArchiveObject.h"
 
-@interface WardrobesData : KeyedArchiveObject
-
+@interface WardrobesData : NSObject
+//添加新的衣架调用
 + (void)addWardrobesItemWithTitle:(NSString *)title;
 
 + (NSInteger)count;

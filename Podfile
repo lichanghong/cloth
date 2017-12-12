@@ -9,5 +9,7 @@ target '衣柜' do
 pod 'CHBaseUtil', '~> 0.0.5'
 pod 'MagicalRecord', '~> 2.3.2'
 pod 'Alert', '~> 1.0.4'
+pod 'KSPhotoBrowser'
+
 
 end

@@ -7,7 +7,6 @@
 //
 
 #import "WardrobesData.h"
-#import "WardrobesItem.h"
 #import "WardrobesEntity+CoreDataClass.h"
 #import <MagicalRecord/MagicalRecord.h>
 

@@ -10,7 +10,6 @@
 #import <CHBaseUtil.h>
 #import "HomeAddAlert.h"
 #import "WardrobesData.h"
-#import "WardrobesItem.h"
 #import "WardrobesEntity+CoreDataClass.h"
 
 @interface HomeTableViewController ()

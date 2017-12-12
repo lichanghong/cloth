@@ -14,11 +14,8 @@
 		957EBFA31FD6588B00D4A503 /* HomeCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 957EBFA21FD6588B00D4A503 /* HomeCollectionView.m */; };
 		957EBFF91FDA8A0600D4A503 /* HomeAddAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 957EBFF81FDA8A0600D4A503 /* HomeAddAlert.m */; };
 		957EBFFC1FDE18EE00D4A503 /* WardrobesData.m in Sources */ = {isa = PBXBuildFile; fileRef = 957EBFFB1FDE18EE00D4A503 /* WardrobesData.m */; };
-		957EBFFF1FDE199600D4A503 /* WardrobesItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 957EBFFE1FDE199600D4A503 /* WardrobesItem.m */; };
-		957EC0241FDE486D00D4A503 /* KeyedArchiveObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 957EC0231FDE486C00D4A503 /* KeyedArchiveObject.m */; };
 		95A073781FDE8C150019541A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95A073761FDE8C150019541A /* Model.xcdatamodeld */; };
 		95C9C3FD1F9F2BB500ACF52D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C9C3FC1F9F2BB500ACF52D /* AppDelegate.m */; };
-		95C9C4001F9F2BB500ACF52D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C9C3FF1F9F2BB500ACF52D /* ViewController.m */; };
 		95C9C4031F9F2BB500ACF52D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95C9C4011F9F2BB500ACF52D /* Main.storyboard */; };
 		95C9C4051F9F2BB500ACF52D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95C9C4041F9F2BB500ACF52D /* Assets.xcassets */; };
 		95C9C4081F9F2BB500ACF52D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95C9C4061F9F2BB500ACF52D /* LaunchScreen.storyboard */; };
@@ -39,16 +36,10 @@
 		957EBFF81FDA8A0600D4A503 /* HomeAddAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeAddAlert.m; sourceTree = "<group>"; };
 		957EBFFA1FDE18EE00D4A503 /* WardrobesData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WardrobesData.h; sourceTree = "<group>"; };
 		957EBFFB1FDE18EE00D4A503 /* WardrobesData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WardrobesData.m; sourceTree = "<group>"; };
-		957EBFFD1FDE199600D4A503 /* WardrobesItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WardrobesItem.h; sourceTree = "<group>"; };
-		957EBFFE1FDE199600D4A503 /* WardrobesItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WardrobesItem.m; sourceTree = "<group>"; };
-		957EC0221FDE486C00D4A503 /* KeyedArchiveObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyedArchiveObject.h; sourceTree = "<group>"; };
-		957EC0231FDE486C00D4A503 /* KeyedArchiveObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyedArchiveObject.m; sourceTree = "<group>"; };
 		95A073771FDE8C150019541A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		95C9C3F81F9F2BB500ACF52D /* 衣柜.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "衣柜.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95C9C3FB1F9F2BB500ACF52D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		95C9C3FC1F9F2BB500ACF52D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		95C9C3FE1F9F2BB500ACF52D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		95C9C3FF1F9F2BB500ACF52D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		95C9C4021F9F2BB500ACF52D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		95C9C4041F9F2BB500ACF52D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		95C9C4071F9F2BB500ACF52D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -77,6 +68,10 @@
 		957EBFF61FDA89EC00D4A503 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				957EBF9E1FD64FBC00D4A503 /* HomeTableViewCell.h */,
+				957EBF9F1FD64FBC00D4A503 /* HomeTableViewCell.m */,
+				95C9C4111F9F2CED00ACF52D /* CollectionViewCell.h */,
+				95C9C4121F9F2CED00ACF52D /* CollectionViewCell.m */,
 				957EBFF71FDA8A0600D4A503 /* HomeAddAlert.h */,
 				957EBFF81FDA8A0600D4A503 /* HomeAddAlert.m */,
 				9509DE811FDFD798000A147A /* UIImage+Orientation.h */,
@@ -113,14 +108,8 @@
 				95C9C3FC1F9F2BB500ACF52D /* AppDelegate.m */,
 				957EBF9B1FD64C0400D4A503 /* HomeTableViewController.h */,
 				957EBF9C1FD64C0400D4A503 /* HomeTableViewController.m */,
-				957EBF9E1FD64FBC00D4A503 /* HomeTableViewCell.h */,
-				957EBF9F1FD64FBC00D4A503 /* HomeTableViewCell.m */,
 				957EBFA11FD6588B00D4A503 /* HomeCollectionView.h */,
 				957EBFA21FD6588B00D4A503 /* HomeCollectionView.m */,
-				95C9C3FE1F9F2BB500ACF52D /* ViewController.h */,
-				95C9C3FF1F9F2BB500ACF52D /* ViewController.m */,
-				95C9C4111F9F2CED00ACF52D /* CollectionViewCell.h */,
-				95C9C4121F9F2CED00ACF52D /* CollectionViewCell.m */,
 				95C9C4011F9F2BB500ACF52D /* Main.storyboard */,
 				95C9C4041F9F2BB500ACF52D /* Assets.xcassets */,
 				95C9C4061F9F2BB500ACF52D /* LaunchScreen.storyboard */,
@@ -135,10 +124,6 @@
 			children = (
 				957EBFFA1FDE18EE00D4A503 /* WardrobesData.h */,
 				957EBFFB1FDE18EE00D4A503 /* WardrobesData.m */,
-				957EBFFD1FDE199600D4A503 /* WardrobesItem.h */,
-				957EBFFE1FDE199600D4A503 /* WardrobesItem.m */,
-				957EC0221FDE486C00D4A503 /* KeyedArchiveObject.h */,
-				957EC0231FDE486C00D4A503 /* KeyedArchiveObject.m */,
 				95A073761FDE8C150019541A /* Model.xcdatamodeld */,
 			);
 			path = data;
@@ -253,13 +238,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-衣柜-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		950663B48FB3366858951676 /* [CP] Embed Pods Frameworks */ = {
@@ -286,8 +274,6 @@
 			files = (
 				9509DE851FDFD91F000A147A /* UIImage+Orientation.m in Sources */,
 				957EBFF91FDA8A0600D4A503 /* HomeAddAlert.m in Sources */,
-				95C9C4001F9F2BB500ACF52D /* ViewController.m in Sources */,
-				957EBFFF1FDE199600D4A503 /* WardrobesItem.m in Sources */,
 				95C9C40B1F9F2BB500ACF52D /* main.m in Sources */,
 				957EBFA01FD64FBC00D4A503 /* HomeTableViewCell.m in Sources */,
 				95C9C4131F9F2CED00ACF52D /* CollectionViewCell.m in Sources */,
@@ -295,7 +281,6 @@
 				95C9C3FD1F9F2BB500ACF52D /* AppDelegate.m in Sources */,
 				957EBFFC1FDE18EE00D4A503 /* WardrobesData.m in Sources */,
 				957EBFA31FD6588B00D4A503 /* HomeCollectionView.m in Sources */,
-				957EC0241FDE486D00D4A503 /* KeyedArchiveObject.m in Sources */,
 				95A073781FDE8C150019541A /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
