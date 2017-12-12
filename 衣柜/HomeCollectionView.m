@@ -15,6 +15,7 @@
 #import "WardrobesEntity+CoreDataClass.h"
 #import <MagicalRecord/MagicalRecord.h>
 #import "DetailEntity+CoreDataClass.h"
+#import "UIImage+Orientation.h"
 
 @interface HomeCollectionView()
 @property (nonatomic,strong)WardrobesEntity *takePhotoItem;
@@ -130,6 +131,7 @@
     NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
     if ([type isEqualToString:@"public.image"]) {
         UIImage* image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        image = [image fixOrientation:image];
         NSData *data;
         if (UIImagePNGRepresentation(image) ==nil)
         {
@@ -170,8 +172,8 @@
     {
         [fileManager createDirectoryAtPath:cachePath withIntermediateDirectories:YES attributes:nil error:nil];
     }
-    NSString *name = [self md5:[[info objectForKey:@"UIImagePickerControllerImageURL"]
-                                absoluteString]];
+    NSString *namestr = [NSString stringWithFormat:@"%ld%d%d",time(NULL),arc4random()%99999,arc4random()%99999];
+    NSString *name = [self md5:namestr];
     name = [NSString stringWithFormat:@"/%ld_%@.png",time(NULL),name];
     NSString *imagePath = [cachePath stringByAppendingString:name];
     if ([fileManager createFileAtPath:imagePath contents:data attributes:nil]) {

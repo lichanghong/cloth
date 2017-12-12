@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3D2F3A402AD6812CEF3B4704 /* libPods-衣柜.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC4AE6C80BAE2593E00ECC5 /* libPods-衣柜.a */; };
+		9509DE851FDFD91F000A147A /* UIImage+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9509DE841FDFD91F000A147A /* UIImage+Orientation.m */; };
 		957EBF9D1FD64C0400D4A503 /* HomeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 957EBF9C1FD64C0400D4A503 /* HomeTableViewController.m */; };
 		957EBFA01FD64FBC00D4A503 /* HomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 957EBF9F1FD64FBC00D4A503 /* HomeTableViewCell.m */; };
 		957EBFA31FD6588B00D4A503 /* HomeCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 957EBFA21FD6588B00D4A503 /* HomeCollectionView.m */; };
@@ -26,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9509DE811FDFD798000A147A /* UIImage+Orientation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Orientation.h"; sourceTree = "<group>"; };
+		9509DE841FDFD91F000A147A /* UIImage+Orientation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Orientation.m"; sourceTree = "<group>"; };
 		957EBF9B1FD64C0400D4A503 /* HomeTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeTableViewController.h; sourceTree = "<group>"; };
 		957EBF9C1FD64C0400D4A503 /* HomeTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeTableViewController.m; sourceTree = "<group>"; };
 		957EBF9E1FD64FBC00D4A503 /* HomeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeTableViewCell.h; sourceTree = "<group>"; };
@@ -76,6 +79,8 @@
 			children = (
 				957EBFF71FDA8A0600D4A503 /* HomeAddAlert.h */,
 				957EBFF81FDA8A0600D4A503 /* HomeAddAlert.m */,
+				9509DE811FDFD798000A147A /* UIImage+Orientation.h */,
+				9509DE841FDFD91F000A147A /* UIImage+Orientation.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -279,6 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9509DE851FDFD91F000A147A /* UIImage+Orientation.m in Sources */,
 				957EBFF91FDA8A0600D4A503 /* HomeAddAlert.m in Sources */,
 				95C9C4001F9F2BB500ACF52D /* ViewController.m in Sources */,
 				957EBFFF1FDE199600D4A503 /* WardrobesItem.m in Sources */,
