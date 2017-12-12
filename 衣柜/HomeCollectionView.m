@@ -13,6 +13,8 @@
 #import "WardrobesItem.h"
 #import<CommonCrypto/CommonDigest.h>
 #import "WardrobesEntity+CoreDataClass.h"
+#import <MagicalRecord/MagicalRecord.h>
+#import "DetailEntity+CoreDataClass.h"
 
 @interface HomeCollectionView()
 @property (nonatomic,strong)WardrobesEntity *takePhotoItem;
@@ -35,9 +37,9 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     NSArray *entities = [WardrobesData entities];
-    WardrobesEntity *entity = [entities objectAtIndex:section];
+    WardrobesEntity *entity = [entities objectAtIndex:collectionView.tag];
     NSUInteger count = entity.detail.count;
-    return  count == 0 ? 1:count;
+    return  count == 0 ? 1:count+1;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -48,8 +50,21 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CollectionViewCell *collVC = [collectionView dequeueReusableCellWithReuseIdentifier:[CollectionViewCell identifier] forIndexPath:indexPath];
-    if (collVC) {
-        collVC.backgroundColor = RandomColor;
+    NSArray *entities = [WardrobesData entities];
+    WardrobesEntity *entity = [entities objectAtIndex:collectionView.tag];
+
+    if (entity.detail.count<=indexPath.item) {
+        collVC.imageView.image = [UIImage imageNamed:@"add"];
+    }
+    else {
+        if (entity.detail && entity.detail.count > indexPath.row) {
+            DetailEntity *detail = entity.detail.allObjects[indexPath.row];
+            if (collVC) {
+                NSString *imageP = [[WardrobesData cachePath] stringByAppendingPathComponent:detail.imagePath];
+                UIImage *image = [UIImage imageWithContentsOfFile:imageP];
+                collVC.imageView.image = image;
+            }
+        }
     }
     return collVC;
 }
@@ -57,15 +72,19 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *entities = [WardrobesData entities];
+    if (entities.count<collectionView.tag) {
+        return;
+    }
     WardrobesEntity *entity = [entities objectAtIndex:collectionView.tag];
-    NSUInteger count = entity.detail.count;
+    NSSet *details = entity.detail;
+    NSUInteger count = details.count;
     if (indexPath.item == count) {
-        NSLog(@"%@ add.....",entity.title);
         self.takePhotoItem = entity;
         [self takePhoto];
     }
     else{
-        NSLog(@"show.....%d   %d",indexPath.item,count);
+        DetailEntity *detail = [details.allObjects objectAtIndex:indexPath.item];
+
     }
 }
 
@@ -120,19 +139,49 @@
         {
             data = UIImagePNGRepresentation(image);
         }
-    
-        WardrobeItemDetail *detail = [WardrobeItemDetail createDetailWithInfo:info ImageData:data];
-//        NSMutableArray *wardrobes = [WardrobesData wardrobeData].wardrobes;
-//        WardrobesItem *item = wardrobes[self.tag];
-//        [item.wardrobesPaths addObject:detail];
-//        [self reloadData];
+        
+        
+        NSArray *entities = [WardrobesData entities];
+        WardrobesEntity *entity = [entities objectAtIndex:self.tag];
+        NSString *imagePath = [HomeCollectionView createImageWithInfo:info ImageData:data];
+        __weak HomeCollectionView *weakself = self;
+        
+        DetailEntity *detail = [DetailEntity MR_createEntityInContext:[entity managedObjectContext]];
+        [detail setBrief:@""];
+        detail.imagePath = [[imagePath componentsSeparatedByString:@"Caches/"] lastObject];
+        [entity addDetailObject:detail];
+        [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
+
+        [weakself reloadData];
+
         //关闭相册界面
         [picker dismissViewControllerAnimated:YES completion:nil];
-        
     }
 }
 
-- (NSString *) md5:(NSString *) input {
++ (NSString *)createImageWithInfo:(NSDictionary<NSString *,id> *)info ImageData:(NSData *)data
+{
+    NSString *cachePath = [[WardrobesData cachePath] stringByAppendingPathComponent:@"images"];
+    //文件管理器
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    //把刚刚图片转换的data对象拷贝至沙盒中并保存为image.png
+    BOOL isDic=NO;
+    if(!([fileManager fileExistsAtPath:cachePath isDirectory:&isDic] && isDic))
+    {
+        [fileManager createDirectoryAtPath:cachePath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    NSString *name = [self md5:[[info objectForKey:@"UIImagePickerControllerImageURL"]
+                                absoluteString]];
+    name = [NSString stringWithFormat:@"/%ld_%@.png",time(NULL),name];
+    NSString *imagePath = [cachePath stringByAppendingString:name];
+    if ([fileManager createFileAtPath:imagePath contents:data attributes:nil]) {
+        return imagePath;
+    }
+    return nil;
+}
+
+
++ (NSString *) md5:(NSString *) input {
     const char *cStr = [input UTF8String];
     unsigned char digest[CC_MD5_DIGEST_LENGTH];
     CC_MD5( cStr, strlen(cStr), digest ); // This is the md5 call

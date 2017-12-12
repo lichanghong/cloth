@@ -36,14 +36,11 @@
     return single;
 }
 
-+ (NSString *)pathOfWardrobeData
++ (NSString *)cachePath
 {
-    NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
-    NSString *pathDoc = [docPath stringByAppendingPathComponent:@"wardrobeData"];
-    if (![[NSFileManager defaultManager]fileExistsAtPath:pathDoc]) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:pathDoc withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-    return [NSString stringWithFormat:@"%@/wardrobe.archiver",pathDoc];
+     return [NSSearchPathForDirectoriesInDomains(NSCachesDirectory
+                                                             , NSUserDomainMask
+                                                             , YES) lastObject];
 }
 
 + (void)addWardrobesItemWithTitle:(NSString *)title

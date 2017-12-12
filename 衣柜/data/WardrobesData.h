@@ -15,7 +15,7 @@
 
 + (NSInteger)count;
 + (NSArray *)entities;
-+ (NSString *)pathOfWardrobeData;
++ (NSString *)cachePath;
 
 + (instancetype)wardrobeData;
 
