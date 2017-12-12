@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3D2F3A402AD6812CEF3B4704 /* libPods-衣柜.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC4AE6C80BAE2593E00ECC5 /* libPods-衣柜.a */; };
 		9509DE851FDFD91F000A147A /* UIImage+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9509DE841FDFD91F000A147A /* UIImage+Orientation.m */; };
+		9509DE871FDFFE68000A147A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9509DE861FDFFE68000A147A /* Images.xcassets */; };
 		957EBF9D1FD64C0400D4A503 /* HomeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 957EBF9C1FD64C0400D4A503 /* HomeTableViewController.m */; };
 		957EBFA01FD64FBC00D4A503 /* HomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 957EBF9F1FD64FBC00D4A503 /* HomeTableViewCell.m */; };
 		957EBFA31FD6588B00D4A503 /* HomeCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 957EBFA21FD6588B00D4A503 /* HomeCollectionView.m */; };
@@ -26,6 +27,7 @@
 /* Begin PBXFileReference section */
 		9509DE811FDFD798000A147A /* UIImage+Orientation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Orientation.h"; sourceTree = "<group>"; };
 		9509DE841FDFD91F000A147A /* UIImage+Orientation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Orientation.m"; sourceTree = "<group>"; };
+		9509DE861FDFFE68000A147A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		957EBF9B1FD64C0400D4A503 /* HomeTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeTableViewController.h; sourceTree = "<group>"; };
 		957EBF9C1FD64C0400D4A503 /* HomeTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeTableViewController.m; sourceTree = "<group>"; };
 		957EBF9E1FD64FBC00D4A503 /* HomeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeTableViewCell.h; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				95C9C4061F9F2BB500ACF52D /* LaunchScreen.storyboard */,
 				95C9C4091F9F2BB500ACF52D /* Info.plist */,
 				95C9C40A1F9F2BB500ACF52D /* main.m */,
+				9509DE861FDFFE68000A147A /* Images.xcassets */,
 			);
 			path = "衣柜";
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				95C9C4081F9F2BB500ACF52D /* LaunchScreen.storyboard in Resources */,
+				9509DE871FDFFE68000A147A /* Images.xcassets in Resources */,
 				95C9C4051F9F2BB500ACF52D /* Assets.xcassets in Resources */,
 				95C9C4031F9F2BB500ACF52D /* Main.storyboard in Resources */,
 			);
