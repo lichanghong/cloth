@@ -12,10 +12,10 @@
 #import "WardrobesData.h"
 #import "WardrobesItem.h"
 #import<CommonCrypto/CommonDigest.h>
-
+#import "WardrobesEntity+CoreDataClass.h"
 
 @interface HomeCollectionView()
-@property (nonatomic,strong)WardrobesItem *takePhotoItem;
+@property (nonatomic,strong)WardrobesEntity *takePhotoItem;
 @end
 
 @implementation HomeCollectionView
@@ -34,10 +34,10 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 2;
-//    NSMutableArray *wardrobes = [WardrobesData wardrobeData].wardrobes;
-//    WardrobesItem *item = wardrobes[section];
-//    return item.wardrobesPaths.count==0?1:item.wardrobesPaths.count;
+    NSArray *entities = [WardrobesData entities];
+    WardrobesEntity *entity = [entities objectAtIndex:section];
+    NSUInteger count = entity.detail.count;
+    return  count == 0 ? 1:count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -56,16 +56,17 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    NSMutableArray *wardrobes = [WardrobesData wardrobeData].wardrobes;
-//    WardrobesItem *item = wardrobes[collectionView.tag];
-//    if (indexPath.item == item.wardrobesPaths.count) {
-//        NSLog(@"%@ add.....",item.title);
-//        self.takePhotoItem = item;
-//        [self takePhoto];
-//    }
-//    else{
-//        NSLog(@"show.....%d   %d",indexPath.item,item.wardrobesPaths.count);
-//    }
+    NSArray *entities = [WardrobesData entities];
+    WardrobesEntity *entity = [entities objectAtIndex:collectionView.tag];
+    NSUInteger count = entity.detail.count;
+    if (indexPath.item == count) {
+        NSLog(@"%@ add.....",entity.title);
+        self.takePhotoItem = entity;
+        [self takePhoto];
+    }
+    else{
+        NSLog(@"show.....%d   %d",indexPath.item,count);
+    }
 }
 
 

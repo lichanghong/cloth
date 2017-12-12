@@ -23,10 +23,10 @@
         //获取第1个输入框；
         UITextField *userNameTextField = alertController.textFields.firstObject;
         if (userNameTextField.text.length>100) {
-            [[UIApplication sharedApplication].keyWindow makeToast:@"保存失败，名字太长"];
+            [[UIApplication sharedApplication].keyWindow makeToast:@"衣架创建失败，名字太长"];
             return;
         }
-        [[UIApplication sharedApplication].keyWindow  makeToast:@"保存成功"];
+        [[UIApplication sharedApplication].keyWindow  makeToast:@"衣架创建成功"];
         success(userNameTextField.text);
     }]];
     
