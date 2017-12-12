@@ -34,6 +34,7 @@
 {
     if (!_imageView) {
         _imageView = [[UIImageView alloc]initWithFrame:self.bounds];
+        [_imageView setContentMode:UIViewContentModeCenter];
         _imageView.image = [UIImage imageNamed:@"add"];
     }
     return _imageView;
