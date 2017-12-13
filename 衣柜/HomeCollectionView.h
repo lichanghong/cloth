@@ -10,7 +10,7 @@
 
 @interface HomeCollectionView : UICollectionView<UICollectionViewDelegate,
 UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,
-UINavigationControllerDelegate>
+UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
 
 @end
