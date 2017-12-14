@@ -11,6 +11,7 @@
 @interface WardrobesData : NSObject
 //添加新的衣架调用
 + (void)addWardrobesItemWithTitle:(NSString *)title;
++ (void)removeWardrobesItemAtIndexPath:(NSIndexPath *)indexPath;
 
 + (NSInteger)count;
 + (NSArray *)entities;

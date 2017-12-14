@@ -51,4 +51,20 @@
     }];
 }
 
++ (void)removeWardrobesItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext * _Nonnull localContext) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"index = %d",indexPath.row];
+        WardrobesEntity *entity = [[WardrobesEntity MR_findAllWithPredicate:predicate]lastObject];
+        [entity MR_deleteEntity];
+        
+        NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"index > %d",indexPath.row];
+        NSArray *entitys = [WardrobesEntity MR_findAllWithPredicate:predicate1];
+        for (WardrobesEntity *en in entitys) {
+            en.index-=1;
+        }
+        
+    }];
+}
+
 @end

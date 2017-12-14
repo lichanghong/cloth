@@ -83,6 +83,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="衣架" id="eho-1Q-gto">
+                        <barButtonItem key="leftBarButtonItem" title="删除" id="lL6-SL-JkG">
+                            <connections>
+                                <action selector="handleAction:" destination="vep-Lv-m4W" id="ugI-bI-2xn"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="P4W-XS-1LZ">
                             <connections>
                                 <action selector="handleAction:" destination="vep-Lv-m4W" id="bmB-HL-F3Y"/>
@@ -91,6 +96,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="add" destination="P4W-XS-1LZ" id="key-CH-44e"/>
+                        <outlet property="edit" destination="lL6-SL-JkG" id="Szd-ax-UQY"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gs3-6B-TMJ" userLabel="First Responder" sceneMemberID="firstResponder"/>

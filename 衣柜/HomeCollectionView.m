@@ -70,7 +70,6 @@
                         d.index-=1;
                     }
                     [entity removeDetailObject:detail];
-                    sortDetail = nil;
                     [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
                     [ws reloadData];
                 }];
@@ -138,16 +137,11 @@
 }
 
 
-NSArray *sortDetail = nil;
 - (NSArray *)detailsOfEntity:(WardrobesEntity *)entity
 {
-    if (sortDetail) {
-        return sortDetail;
-    }
     NSArray *sorted = [entity.detail.allObjects sortedArrayUsingComparator:^NSComparisonResult(DetailEntity* obj1, DetailEntity* obj2) {
         return obj1.index<obj2.index?NSOrderedAscending:NSOrderedDescending;
     }];
-    sortDetail = sorted;
     return sorted;
 }
 
@@ -241,12 +235,10 @@ NSArray *sortDetail = nil;
             detail.index = (int)entity.detail.count;
             NSLog(@"index=%d",detail.index);
             [entity addDetailObject:detail];
-            entity.index = (int)[WardrobesData entities].count;
             [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
 
         }
         dispatch_sync(dispatch_get_main_queue(), ^{
-            sortDetail = nil;
             [self reloadData];
         });
         //关闭相册界面
@@ -282,7 +274,6 @@ NSArray *sortDetail = nil;
         detail.imagePath = [[imagePath componentsSeparatedByString:@"Caches/"] lastObject];
         [entity addDetailObject:detail];
         [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
-        sortDetail = nil;
         [weakself reloadData];
 
         //关闭相册界面

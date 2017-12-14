@@ -14,6 +14,7 @@
 
 @interface HomeTableViewController ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *add;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *edit;
 
 @end
 
@@ -25,6 +26,30 @@
             [WardrobesData addWardrobesItemWithTitle:title];
             [weakself.tableView reloadData];
         }];
+    }
+    else if (sender == self.edit)
+    {
+        if (self.edit.tag==0) {
+            [self.tableView setEditing:YES animated:YES];
+            self.edit.tag = 1;
+            self.edit.title = @"完成";
+        }
+        else
+        {
+            self.edit.tag = 0;
+            self.edit.title = @"删除";
+            [self.tableView setEditing:NO animated:YES];
+
+        }
+    }
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle==UITableViewCellEditingStyleDelete) {
+        //更新数据
+        [WardrobesData removeWardrobesItemAtIndexPath:indexPath];
+        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationRight];
     }
 }
 
