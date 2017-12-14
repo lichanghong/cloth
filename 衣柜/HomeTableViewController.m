@@ -28,10 +28,13 @@
     }
 }
 
+BOOL gcdFlag = NO;
 - (void)viewDidLoad {
     [super viewDidLoad];
+   
     
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -63,8 +66,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeTableViewCell" forIndexPath:indexPath];
-    NSLog(@"%d",indexPath.section);
-    cell.tag = indexPath.section;
+    cell.tag = (NSInteger)indexPath.section;
     // Configure the cell...
     
     return cell;

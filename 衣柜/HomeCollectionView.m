@@ -42,6 +42,7 @@
 }
 - (void)lonePressMoving:(UILongPressGestureRecognizer *)longPress
 {
+    __weak typeof(self) ws = self;
     switch (longPress.state) {
         case UIGestureRecognizerStatePossible: {
             
@@ -52,15 +53,26 @@
                 UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
                 NSIndexPath *selectIndexPath = [self indexPathForItemAtPoint:[_longPress locationInView:self]];
                 // 找到当前的cell
-                CollectionViewCell *cell = (CollectionViewCell *)[self cellForItemAtIndexPath:selectIndexPath];
+//                CollectionViewCell *cell = (CollectionViewCell *)[self cellForItemAtIndexPath:selectIndexPath];
                 NSArray *entities = [WardrobesData entities];
                 WardrobesEntity *entity = [entities objectAtIndex:self.tag];
-                
+                NSArray *details = [self detailsOfEntity:entity];
+                DetailEntity *detail = details[selectIndexPath.item];
                 [HomeAddAlert alertToDeleteInVC:rootVC success:^{
-                    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext * _Nonnull localContext) {
-                        NSLog(@"begin............");
-
-                    }];
+                    NSLog(@"begin............");
+                    if (entity.detail.count==0) {
+                        NSLog(@"没了");
+                        return;
+                    }
+                    //detail删除了，他后面的detail.index-1
+                    for (int i=(int)detail.index; i<details.count; i++) {
+                        DetailEntity *d = details[i];
+                        d.index-=1;
+                    }
+                    [entity removeDetailObject:detail];
+                    sortDetail = nil;
+                    [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
+                    [ws reloadData];
                 }];
             }
             break;
@@ -89,6 +101,9 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     NSArray *entities = [WardrobesData entities];
+    if (entities.count<=collectionView.tag) {
+        return 1;
+    }
     WardrobesEntity *entity = [entities objectAtIndex:collectionView.tag];
     NSUInteger count = entity.detail.count;
     return  count == 0 ? 1:count+1;
