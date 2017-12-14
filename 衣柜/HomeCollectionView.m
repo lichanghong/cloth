@@ -17,6 +17,7 @@
 #import "UIImage+Orientation.h"
 #import <KSPhotoBrowser.h>
 #import <TZImagePickerController.h>
+#import "HomeAddAlert.h"
 
 
 @interface HomeCollectionView()<TZImagePickerControllerDelegate>
@@ -24,6 +25,9 @@
 @end
 
 @implementation HomeCollectionView
+{
+    UILongPressGestureRecognizer *_longPress;
+}
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
@@ -31,11 +35,56 @@
     if (self) {
         self.delegate = self;
         self.dataSource = self;
-
+        _longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(lonePressMoving:)];
+        [self addGestureRecognizer:_longPress];
     }
     return self;
 }
- 
+- (void)lonePressMoving:(UILongPressGestureRecognizer *)longPress
+{
+    switch (longPress.state) {
+        case UIGestureRecognizerStatePossible: {
+            
+            break;
+        }
+        case UIGestureRecognizerStateBegan: {
+            {
+                UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+                NSIndexPath *selectIndexPath = [self indexPathForItemAtPoint:[_longPress locationInView:self]];
+                // 找到当前的cell
+                CollectionViewCell *cell = (CollectionViewCell *)[self cellForItemAtIndexPath:selectIndexPath];
+                NSArray *entities = [WardrobesData entities];
+                WardrobesEntity *entity = [entities objectAtIndex:self.tag];
+                
+                [HomeAddAlert alertToDeleteInVC:rootVC success:^{
+                    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext * _Nonnull localContext) {
+                        NSLog(@"begin............");
+
+                    }];
+                }];
+            }
+            break;
+        }
+        case UIGestureRecognizerStateChanged: {
+            
+            break;
+        }
+        case UIGestureRecognizerStateEnded: {
+            
+            break;
+        }
+        case UIGestureRecognizerStateCancelled: {
+            
+            break;
+        }
+        case UIGestureRecognizerStateFailed: {
+            
+            break;
+        }
+    }
+}
+
+
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -53,6 +102,7 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CollectionViewCell *collVC = [collectionView dequeueReusableCellWithReuseIdentifier:[CollectionViewCell identifier] forIndexPath:indexPath];
+    collVC.imageView.image = nil;
     NSArray *entities = [WardrobesData entities];
     WardrobesEntity *entity = [entities objectAtIndex:collectionView.tag];
 
@@ -61,7 +111,7 @@
     }
     else {
         if (entity.detail && entity.detail.count > indexPath.row) {
-            DetailEntity *detail = entity.detail.allObjects[indexPath.row];
+            DetailEntity *detail = [self detailsOfEntity:entity][indexPath.row];
             if (collVC) {
                 NSString *imageP = [[WardrobesData cachePath] stringByAppendingPathComponent:detail.imagePath];
                 UIImage *image = [UIImage imageWithContentsOfFile:imageP];
@@ -72,15 +122,28 @@
     return collVC;
 }
 
+
+NSArray *sortDetail = nil;
+- (NSArray *)detailsOfEntity:(WardrobesEntity *)entity
+{
+    if (sortDetail) {
+        return sortDetail;
+    }
+    NSArray *sorted = [entity.detail.allObjects sortedArrayUsingComparator:^NSComparisonResult(DetailEntity* obj1, DetailEntity* obj2) {
+        return obj1.index<obj2.index?NSOrderedAscending:NSOrderedDescending;
+    }];
+    sortDetail = sorted;
+    return sorted;
+}
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *entities = [WardrobesData entities];
     if (entities.count<collectionView.tag) {
         return;
     }
-    UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
     WardrobesEntity *entity = [entities objectAtIndex:collectionView.tag];
-    NSSet *details = entity.detail;
+    NSArray *details = [self detailsOfEntity:entity];
     NSUInteger count = details.count;
     if (indexPath.item == count) {
         self.takePhotoItem = entity;
@@ -88,13 +151,14 @@
     }
     else{
         NSMutableArray *items = @[].mutableCopy;
-        for (int i=0; i<details.allObjects.count; i++) {
-            DetailEntity *detail = [details.allObjects objectAtIndex:i];
+        for (int i=0; i<details.count; i++) {
+            DetailEntity *detail = [details objectAtIndex:i];
             NSString *imageP = [[WardrobesData cachePath] stringByAppendingPathComponent:detail.imagePath];
             UIImage *image = [UIImage imageWithContentsOfFile:imageP];
             
             CollectionViewCell *cell = (id)[collectionView cellForItemAtIndexPath:[NSIndexPath indexPathWithIndex:i]];
             UIImageView *imageView = cell.imageView;
+            [imageView setImage:[UIImage new]];
             KSPhotoItem *item = [KSPhotoItem itemWithSourceView:imageView image:image];
             [items addObject:item];
         }
@@ -144,7 +208,6 @@
 {
     NSArray *entities = [WardrobesData entities];
     WardrobesEntity *entity = [entities objectAtIndex:self.tag];
-
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         for (UIImage *oimage  in photos) {
             UIImage *image = [oimage fixOrientation:oimage];
@@ -159,13 +222,16 @@
             }
             NSString *imagePath = [HomeCollectionView createImageWithImageData:data];
             DetailEntity *detail = [DetailEntity MR_createEntityInContext:[entity managedObjectContext]];
-            [detail setBrief:@""];
             detail.imagePath = [[imagePath componentsSeparatedByString:@"Caches/"] lastObject];
+            detail.index = (int)entity.detail.count;
+            NSLog(@"index=%d",detail.index);
             [entity addDetailObject:detail];
+            entity.index = (int)[WardrobesData entities].count;
             [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
 
         }
         dispatch_sync(dispatch_get_main_queue(), ^{
+            sortDetail = nil;
             [self reloadData];
         });
         //关闭相册界面
@@ -197,11 +263,11 @@
         __weak HomeCollectionView *weakself = self;
 
         DetailEntity *detail = [DetailEntity MR_createEntityInContext:[entity managedObjectContext]];
-        [detail setBrief:@""];
+        detail.index = (int)entity.detail.count;
         detail.imagePath = [[imagePath componentsSeparatedByString:@"Caches/"] lastObject];
         [entity addDetailObject:detail];
         [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
-
+        sortDetail = nil;
         [weakself reloadData];
 
         //关闭相册界面

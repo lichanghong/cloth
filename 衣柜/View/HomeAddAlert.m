@@ -37,4 +37,23 @@
     
     [vc presentViewController:alertController animated:true completion:nil];
 }
+
++ (void)alertToDeleteInVC:(UIViewController *)vc success:(void (^)(void))success
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"是否要删除这张照片？" preferredStyle:UIAlertControllerStyleAlert];
+    //增加取消按钮；
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    }]];
+    
+    //增加确定按钮；
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[UIApplication sharedApplication].keyWindow  makeToast:@"删除成功"];
+        success();
+    }]];
+    
+    
+    [vc presentViewController:alertController animated:true completion:nil];
+}
+
+
 @end
