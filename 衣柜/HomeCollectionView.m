@@ -69,8 +69,13 @@
                         DetailEntity *d = details[i];
                         d.index-=1;
                     }
+                    //删除图片文件及对象数据
+                    NSString *imageP = [[WardrobesData cachePath] stringByAppendingPathComponent:detail.imagePath];
+                    [[NSFileManager defaultManager] removeItemAtPath:imageP error:nil];
+                    
                     [entity removeDetailObject:detail];
                     [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
+                    
                     [ws reloadData];
                 }];
             }
@@ -220,20 +225,16 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         for (UIImage *oimage  in photos) {
             UIImage *image = [oimage fixOrientation:oimage];
-            NSData *data;
-            if (UIImagePNGRepresentation(image) ==nil)
-            {
-                data = UIImageJPEGRepresentation(image,1.0);
-            }
-            else
+            NSData *data = UIImagePNGRepresentation(image);
+            if (UIImageJPEGRepresentation(image,0.5) ==nil)
             {
                 data = UIImagePNGRepresentation(image);
             }
+            
             NSString *imagePath = [HomeCollectionView createImageWithImageData:data];
             DetailEntity *detail = [DetailEntity MR_createEntityInContext:[entity managedObjectContext]];
             detail.imagePath = [[imagePath componentsSeparatedByString:@"Caches/"] lastObject];
             detail.index = (int)entity.detail.count;
-            NSLog(@"index=%d",detail.index);
             [entity addDetailObject:detail];
             [entity.managedObjectContext MR_saveToPersistentStoreAndWait];
 
@@ -253,12 +254,9 @@
     if ([type isEqualToString:@"public.image"]) {
         UIImage* image = [info objectForKey:UIImagePickerControllerOriginalImage];
         image = [image fixOrientation:image];
-        NSData *data;
-        if (UIImagePNGRepresentation(image) ==nil)
-        {
-            data = UIImageJPEGRepresentation(image,1.0);
-        }
-        else
+
+        NSData *data = UIImagePNGRepresentation(image);
+        if (UIImageJPEGRepresentation(image,0.5) ==nil)
         {
             data = UIImagePNGRepresentation(image);
         }

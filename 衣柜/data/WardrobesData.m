@@ -9,6 +9,7 @@
 #import "WardrobesData.h"
 #import "WardrobesEntity+CoreDataClass.h"
 #import <MagicalRecord/MagicalRecord.h>
+#import "DetailEntity+CoreDataClass.h"
 
 @implementation WardrobesData
 
@@ -60,6 +61,13 @@
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.index = %d",indexPath.section];
         NSArray *wardrobes = [WardrobesEntity MR_findAllWithPredicate:predicate];
         WardrobesEntity *entity = [wardrobes lastObject];
+        //本地图片删除
+        for (DetailEntity *detail in entity.detail) {
+            NSString *imageP = [[self cachePath] stringByAppendingPathComponent:detail.imagePath];
+            [[NSFileManager defaultManager] removeItemAtPath:imageP error:nil];
+        }
+
+
         [entity MR_deleteEntityInContext:localContext];
         NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"SELF.index > %d",indexPath.section];
         NSArray *entitys = [WardrobesEntity MR_findAllWithPredicate:predicate1 inContext:localContext];
