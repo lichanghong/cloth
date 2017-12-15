@@ -7,12 +7,10 @@
 //
 
 #import "HomeTableViewCell.h"
-#import "HomeCollectionView.h"
 #import <CHBaseUtil.h>
 
 @interface HomeTableViewCell()
 
-@property (strong, nonatomic) IBOutlet HomeCollectionView *homeCollectionView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewW;
 
 @end

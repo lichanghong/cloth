@@ -11,6 +11,7 @@
 #import "HomeAddAlert.h"
 #import "WardrobesData.h"
 #import "WardrobesEntity+CoreDataClass.h"
+#import "HomeTableViewCell.h"
 
 @interface HomeTableViewController ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *add;
@@ -46,10 +47,12 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"sjdfklsdf=%d  %d",indexPath.row,indexPath.section);
     if (editingStyle==UITableViewCellEditingStyleDelete) {
         //更新数据
         [WardrobesData removeWardrobesItemAtIndexPath:indexPath];
-        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationRight];
+        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:indexPath.section];
+        [tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationRight];
     }
 }
 
@@ -57,7 +60,6 @@ BOOL gcdFlag = NO;
 - (void)viewDidLoad {
     [super viewDidLoad];
    
-    
 }
 
 
@@ -90,8 +92,9 @@ BOOL gcdFlag = NO;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeTableViewCell" forIndexPath:indexPath];
+    HomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeTableViewCell" forIndexPath:indexPath];
     cell.tag = (NSInteger)indexPath.section;
+    [cell.homeCollectionView reloadData];
     // Configure the cell...
     
     return cell;

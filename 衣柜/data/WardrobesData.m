@@ -21,6 +21,9 @@
 {
    NSArray *entitys = [WardrobesEntity MR_findAllSortedBy:@"index"
                      ascending:YES];
+//    for (WardrobesEntity *en in entitys) {
+//        NSLog(@"%d",en.index);
+//    }
     return entitys;
 }
 
@@ -54,17 +57,21 @@
 + (void)removeWardrobesItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext * _Nonnull localContext) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"index = %d",indexPath.row];
-        WardrobesEntity *entity = [[WardrobesEntity MR_findAllWithPredicate:predicate]lastObject];
-        [entity MR_deleteEntity];
-        
-        NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"index > %d",indexPath.row];
-        NSArray *entitys = [WardrobesEntity MR_findAllWithPredicate:predicate1];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.index = %d",indexPath.section];
+        NSArray *wardrobes = [WardrobesEntity MR_findAllWithPredicate:predicate];
+        WardrobesEntity *entity = [wardrobes lastObject];
+        [entity removeDetail:entity.detail];
+        [entity MR_deleteEntityInContext:localContext];
+        NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"SELF.index > %d",indexPath.section];
+        NSArray *entitys = [WardrobesEntity MR_findAllWithPredicate:predicate1 inContext:localContext];
         for (WardrobesEntity *en in entitys) {
             en.index-=1;
         }
-        
+        [localContext MR_saveToPersistentStoreAndWait];
     }];
+    
+//   int count = [self entities].count;
+//    NSLog(@"count=%d",count);
 }
 
 @end

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HomeCollectionView.h"
+
 
 @interface HomeTableViewCell : UITableViewCell
+@property (strong, nonatomic) IBOutlet HomeCollectionView *homeCollectionView;
 
 @end
