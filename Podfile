@@ -11,5 +11,6 @@ pod 'MagicalRecord', '~> 2.3.2'
 pod 'Alert', '~> 1.0.4'
 pod 'KSPhotoBrowser'
 pod 'TZImagePickerController'
+pod 'Qiniu', '~> 7.1'
 
 end

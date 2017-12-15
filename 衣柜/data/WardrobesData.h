@@ -36,7 +36,10 @@
 
 //同步到云端
 + (void)saveAllData;
-+ (void)postAllDataToServer;
+
+//+ (void)postAllDataToServer;
++ (void)postAllImageToServer;
+
 + (NSArray *)localEntities;
 
 

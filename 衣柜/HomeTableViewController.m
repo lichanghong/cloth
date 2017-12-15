@@ -47,7 +47,6 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"sjdfklsdf=%d  %d",indexPath.row,indexPath.section);
     if (editingStyle==UITableViewCellEditingStyleDelete) {
         //更新数据
         [WardrobesData removeWardrobesItemAtIndexPath:indexPath];
@@ -58,6 +57,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [WardrobesData postAllImageToServer];
+    
     [WardrobesData saveAllData];
     NSArray *locald = [WardrobesData localEntities];
     NSLog(@"%@",locald);

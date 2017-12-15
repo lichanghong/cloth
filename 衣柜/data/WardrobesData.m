@@ -10,13 +10,28 @@
 #import "WardrobesEntity+CoreDataClass.h"
 #import <MagicalRecord/MagicalRecord.h>
 #import "DetailEntity+CoreDataClass.h"
+#import <QN_GTM_Base64.h>
+#import <CommonCrypto/CommonDigest.h>
+#import <CommonCrypto/CommonHMAC.h>
+#import <QiniuSDK.h>
 
 @implementation WardrobesEntityTable
 @end
 @implementation DetailEntityTable
 @end
 
+@interface WardrobesData()
+@property (nonatomic,strong) QNUploadManager *uploadManager;
+@end
 @implementation WardrobesData
+
+- (QNUploadManager *)uploadManager
+{
+    if (!_uploadManager) {
+        _uploadManager = [[QNUploadManager alloc]init];
+    }
+    return _uploadManager;
+}
 
 + (NSInteger)count
 {
@@ -125,11 +140,74 @@
     }
 }
 
+
+static NSString *scope=@"cloth/images";
+static NSString *AK=@"Z8K4P0VVPHnNTdmDt_ZKFjtsUE73vFVDNUoPyvXX";
+static NSString *SK=@"aldz87U2-FVDfdDlbjiM_fL-drOx0w4No_5k2pLU";
 + (void)postAllDataToServer
 {
     NSString *filePath = [self allDataPath];
-    
+    NSData *data = [NSData dataWithContentsOfFile:filePath];
+    NSString *token = [self token];
+    [[[self wardrobeData] uploadManager] putData:data key:@"sqlite/alldata" token:token
+              complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                  NSLog(@"%@", info);
+                  NSLog(@"%@", resp);
+              } option:nil];
 }
++ (void)postAllImageToServer
+{
+    [self postAllDataToServer];
+    for (WardrobesEntity*wardrobes in [self entities]) {
+        for (DetailEntity *detail in wardrobes.detail) {
+            NSString *imageP = [[self cachePath] stringByAppendingPathComponent:detail.imagePath];
+           NSData *data = [NSData dataWithContentsOfFile:imageP];
+            NSString *token = [self token];
+            NSString *key = detail.imagePath;
+            [[[self wardrobeData] uploadManager] putData:data key:key token:token
+                                                complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                                                    NSLog(@"%@", info);
+                                                    NSLog(@"%@", resp);
+                                                } option:nil];
+        }
+    }
+}
++ (NSString *)token
+{
+    NSMutableDictionary *authInfo = [NSMutableDictionary dictionary];
+    [authInfo setObject:scope forKey:@"scope"];
+    [authInfo setObject:[NSNumber numberWithLong:[[NSDate date] timeIntervalSince1970] + 1 * 24 * 3600]
+     forKey:@"deadline"];
+    NSData *jsonData =
+    [NSJSONSerialization dataWithJSONObject:authInfo options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *encodedString = [[self wardrobeData] urlSafeBase64Encode:jsonData];
+    NSString *encodedSignedString = [[self wardrobeData] HMACSHA1:SK text:encodedString];
+    NSString *token = [NSString stringWithFormat:@"%@:%@:%@", AK, encodedSignedString, encodedString];
+    return token;
+
+}
+
+- (NSString *)HMACSHA1:(NSString *)key text:(NSString *)text {
+    const char *cKey = [key cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *cData = [text cStringUsingEncoding:NSUTF8StringEncoding];
+    
+    char cHMAC[CC_SHA1_DIGEST_LENGTH];
+    
+    CCHmac(kCCHmacAlgSHA1, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
+    
+    NSData *HMAC = [[NSData alloc] initWithBytes:cHMAC length:CC_SHA1_DIGEST_LENGTH];
+    NSString *hash = [self urlSafeBase64Encode:HMAC];
+    return hash;
+}
+
+- (NSString *)urlSafeBase64Encode:(NSData *)text {
+    NSString *base64 =
+    [[NSString alloc] initWithData:[QN_GTM_Base64 encodeData:text] encoding:NSUTF8StringEncoding];
+    base64 = [base64 stringByReplacingOccurrencesOfString:@"+" withString:@"-"];
+    base64 = [base64 stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+    return base64;
+}
+
 
 + (NSArray *)localEntities
 {

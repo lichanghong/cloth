@@ -226,6 +226,7 @@
         for (UIImage *oimage  in photos) {
             UIImage *image = [oimage fixOrientation:oimage];
             NSData *data = UIImagePNGRepresentation(image);
+            
             if (UIImageJPEGRepresentation(image,0.5) ==nil)
             {
                 data = UIImagePNGRepresentation(image);
