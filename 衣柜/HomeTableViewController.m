@@ -95,7 +95,6 @@ BOOL gcdFlag = NO;
     HomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeTableViewCell" forIndexPath:indexPath];
     cell.tag = (NSInteger)indexPath.section;
     [cell.homeCollectionView reloadData];
-    // Configure the cell...
     
     return cell;
 }

@@ -60,14 +60,12 @@
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.index = %d",indexPath.section];
         NSArray *wardrobes = [WardrobesEntity MR_findAllWithPredicate:predicate];
         WardrobesEntity *entity = [wardrobes lastObject];
-        [entity removeDetail:entity.detail];
         [entity MR_deleteEntityInContext:localContext];
         NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"SELF.index > %d",indexPath.section];
         NSArray *entitys = [WardrobesEntity MR_findAllWithPredicate:predicate1 inContext:localContext];
         for (WardrobesEntity *en in entitys) {
             en.index-=1;
         }
-        [localContext MR_saveToPersistentStoreAndWait];
     }];
     
 //   int count = [self entities].count;
