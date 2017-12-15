@@ -7,6 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "KeyArchiver.h"
+ 
+
+@interface DetailEntityTable : KeyArchiver
+@property (nonatomic,strong)NSString *imagePath;
+@property (nonatomic,assign)long index;
+@end
+
+@interface WardrobesEntityTable : KeyArchiver
+@property (nonatomic,strong)NSString *title;
+@property (nonatomic,strong)NSMutableArray<DetailEntityTable *> *dets;
+@property (nonatomic,assign)long index;
+@end
 
 @interface WardrobesData : NSObject
 //添加新的衣架调用
@@ -22,8 +35,9 @@
 
 
 //同步到云端
-
-
++ (void)saveAllData;
++ (void)postAllDataToServer;
++ (NSArray *)localEntities;
 
 
 @end

@@ -10,6 +10,7 @@
 		3D2F3A402AD6812CEF3B4704 /* libPods-衣柜.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC4AE6C80BAE2593E00ECC5 /* libPods-衣柜.a */; };
 		9509DE851FDFD91F000A147A /* UIImage+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9509DE841FDFD91F000A147A /* UIImage+Orientation.m */; };
 		9509DE871FDFFE68000A147A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9509DE861FDFFE68000A147A /* Images.xcassets */; };
+		953BFFD21FE3B4FE006F39F0 /* KeyArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 953BFFD11FE3B4FE006F39F0 /* KeyArchiver.m */; };
 		957EBF9D1FD64C0400D4A503 /* HomeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 957EBF9C1FD64C0400D4A503 /* HomeTableViewController.m */; };
 		957EBFA01FD64FBC00D4A503 /* HomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 957EBF9F1FD64FBC00D4A503 /* HomeTableViewCell.m */; };
 		957EBFA31FD6588B00D4A503 /* HomeCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 957EBFA21FD6588B00D4A503 /* HomeCollectionView.m */; };
@@ -28,6 +29,8 @@
 		9509DE811FDFD798000A147A /* UIImage+Orientation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Orientation.h"; sourceTree = "<group>"; };
 		9509DE841FDFD91F000A147A /* UIImage+Orientation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Orientation.m"; sourceTree = "<group>"; };
 		9509DE861FDFFE68000A147A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		953BFFD01FE3B4FE006F39F0 /* KeyArchiver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyArchiver.h; sourceTree = "<group>"; };
+		953BFFD11FE3B4FE006F39F0 /* KeyArchiver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyArchiver.m; sourceTree = "<group>"; };
 		957EBF9B1FD64C0400D4A503 /* HomeTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeTableViewController.h; sourceTree = "<group>"; };
 		957EBF9C1FD64C0400D4A503 /* HomeTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeTableViewController.m; sourceTree = "<group>"; };
 		957EBF9E1FD64FBC00D4A503 /* HomeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeTableViewCell.h; sourceTree = "<group>"; };
@@ -128,6 +131,8 @@
 				957EBFFA1FDE18EE00D4A503 /* WardrobesData.h */,
 				957EBFFB1FDE18EE00D4A503 /* WardrobesData.m */,
 				95A073761FDE8C150019541A /* Model.xcdatamodeld */,
+				953BFFD01FE3B4FE006F39F0 /* KeyArchiver.h */,
+				953BFFD11FE3B4FE006F39F0 /* KeyArchiver.m */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -288,6 +293,7 @@
 				95C9C3FD1F9F2BB500ACF52D /* AppDelegate.m in Sources */,
 				957EBFFC1FDE18EE00D4A503 /* WardrobesData.m in Sources */,
 				957EBFA31FD6588B00D4A503 /* HomeCollectionView.m in Sources */,
+				953BFFD21FE3B4FE006F39F0 /* KeyArchiver.m in Sources */,
 				95A073781FDE8C150019541A /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

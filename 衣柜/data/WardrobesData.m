@@ -11,6 +11,11 @@
 #import <MagicalRecord/MagicalRecord.h>
 #import "DetailEntity+CoreDataClass.h"
 
+@implementation WardrobesEntityTable
+@end
+@implementation DetailEntityTable
+@end
+
 @implementation WardrobesData
 
 + (NSInteger)count
@@ -78,6 +83,58 @@
     
 //   int count = [self entities].count;
 //    NSLog(@"count=%d",count);
+}
+
++ (NSString *)allDataPath
+{
+    NSString *cachePath = [[WardrobesData cachePath] stringByAppendingPathComponent:@"allData"];
+    NSLog(@"alldatapath=%@",cachePath);
+    //文件管理器
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    //把刚刚图片转换的data对象拷贝至沙盒中并保存为image.png
+    BOOL isDic=NO;
+    if(!([fileManager fileExistsAtPath:cachePath isDirectory:&isDic] && isDic))
+    {
+        [fileManager createDirectoryAtPath:cachePath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    NSString *alldataPath = [cachePath stringByAppendingPathComponent:@"alldata"];
+    return alldataPath;
+}
+
++ (void)saveAllData
+{
+    NSMutableArray *result = [NSMutableArray array];
+    NSArray *arr = [self entities];
+    for (WardrobesEntity *wardrabes in arr) {
+        WardrobesEntityTable *wet = [[WardrobesEntityTable alloc]init];
+        wet.index = wardrabes.index;
+        wet.title = wardrabes.title;
+        wet.dets  = [NSMutableArray array];
+        for (DetailEntity *detail in wardrabes.detail) {
+            DetailEntityTable *det = [[DetailEntityTable alloc]init];
+            det.index = detail.index;
+            det.imagePath = detail.imagePath;
+            [wet.dets addObject: det];
+        }
+        [result addObject:wet];
+    }
+    
+    if(![NSKeyedArchiver archiveRootObject:result toFile:[self allDataPath]])
+    {
+        NSLog(@"error writeToFile...");
+    }
+}
+
++ (void)postAllDataToServer
+{
+    NSString *filePath = [self allDataPath];
+    
+}
+
++ (NSArray *)localEntities
+{
+    NSArray *arr = [NSKeyedUnarchiver unarchiveObjectWithFile:[self allDataPath]];
+    return arr;
 }
 
 @end

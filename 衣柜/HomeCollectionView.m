@@ -261,7 +261,6 @@
             data = UIImagePNGRepresentation(image);
         }
 
-
         NSArray *entities = [WardrobesData entities];
         WardrobesEntity *entity = [entities objectAtIndex:self.tag];
         NSString *imagePath = [HomeCollectionView createImageWithImageData:data];
@@ -282,6 +281,7 @@
 + (NSString *)createImageWithImageData:(NSData *)data
 {
     NSString *cachePath = [[WardrobesData cachePath] stringByAppendingPathComponent:@"images"];
+    NSLog(@"imagepath=%@",cachePath);
     //文件管理器
     NSFileManager *fileManager = [NSFileManager defaultManager];
     //把刚刚图片转换的data对象拷贝至沙盒中并保存为image.png

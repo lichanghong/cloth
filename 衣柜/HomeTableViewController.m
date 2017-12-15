@@ -56,10 +56,11 @@
     }
 }
 
-BOOL gcdFlag = NO;
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    [WardrobesData saveAllData];
+    NSArray *locald = [WardrobesData localEntities];
+    NSLog(@"%@",locald);
 }
 
 
