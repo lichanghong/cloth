@@ -14,6 +14,7 @@
 #import <CommonCrypto/CommonDigest.h>
 #import <CommonCrypto/CommonHMAC.h>
 #import <QiniuSDK.h>
+#import <AFNetworking.h>
 
 @implementation WardrobesEntityTable
 @end
@@ -144,6 +145,8 @@
 static NSString *scope=@"cloth/images";
 static NSString *AK=@"Z8K4P0VVPHnNTdmDt_ZKFjtsUE73vFVDNUoPyvXX";
 static NSString *SK=@"aldz87U2-FVDfdDlbjiM_fL-drOx0w4No_5k2pLU";
+static NSString *QN_DOMAIN=@"p0zyyhsy8.bkt.clouddn.com";
+
 + (void)postAllDataToServer
 {
     NSString *filePath = [self allDataPath];
@@ -155,11 +158,15 @@ static NSString *SK=@"aldz87U2-FVDfdDlbjiM_fL-drOx0w4No_5k2pLU";
                   NSLog(@"%@", resp);
               } option:nil];
 }
-+ (void)postAllImageToServer
++ (void)postAllUnuploadImageToServer
 {
     [self postAllDataToServer];
     for (WardrobesEntity*wardrobes in [self entities]) {
         for (DetailEntity *detail in wardrobes.detail) {
+            if (detail.uploaded==true) {
+                NSLog(@"uploaded....");
+                return;
+            }
             NSString *imageP = [[self cachePath] stringByAppendingPathComponent:detail.imagePath];
            NSData *data = [NSData dataWithContentsOfFile:imageP];
             NSString *token = [self token];
@@ -168,9 +175,39 @@ static NSString *SK=@"aldz87U2-FVDfdDlbjiM_fL-drOx0w4No_5k2pLU";
                                                 complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                                                     NSLog(@"%@", info);
                                                     NSLog(@"%@", resp);
+                                                    detail.uploaded = true;
+                                                    [detail.managedObjectContext MR_saveToPersistentStoreAndWait];
                                                 } option:nil];
         }
     }
+}
+
++ (void)restoreAllSources
+{
+    //clear sqlite
+    [WardrobesEntity MR_truncateAll];
+    //clear localdata
+    NSString *filePath = [self allDataPath];
+    [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
+    //download local data from server
+    NSString *alldataURL = [QN_DOMAIN stringByAppendingPathComponent:@"sqlite/alldata"];
+    
+    [AFHTTPSessionManager manager] GET:"sqlite/alldata" parameters:<#(nullable id)#> progress:<#^(NSProgress * _Nonnull downloadProgress)downloadProgress#> success:<#^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)success#> failure:<#^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)failure#>
+//    for (WardrobesEntity*wardrobes in [self entities]) {
+//        for (DetailEntity *detail in wardrobes.detail) {
+//
+//        }
+//    }
+//    NSString *imageP = [QN_DOMAIN stringByAppendingPathComponent:path];
+//    [[AFHTTPSessionManager manager]GET:imageP parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+//        NSLog(@"downloadProgress");
+//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        NSLog(@"success...=%@",responseObject);
+//
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        NSLog(@"failure.....=%@",error);
+//
+//    }];
 }
 + (NSString *)token
 {

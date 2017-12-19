@@ -38,8 +38,8 @@
 + (void)saveAllData;
 
 //+ (void)postAllDataToServer;
-+ (void)postAllImageToServer;
-
++ (void)postAllUnuploadImageToServer;
++ (void)restoreAllSources;
 + (NSArray *)localEntities;
 
 

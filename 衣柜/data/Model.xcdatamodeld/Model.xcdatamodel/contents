@@ -3,6 +3,7 @@
     <entity name="DetailEntity" representedClassName="DetailEntity" syncable="YES" codeGenerationType="class">
         <attribute name="imagePath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="index" optional="YES" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="uploaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="wardrobes" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="WardrobesEntity" inverseName="detail" inverseEntity="WardrobesEntity" syncable="YES"/>
     </entity>
     <entity name="WardrobesEntity" representedClassName="WardrobesEntity" syncable="YES" codeGenerationType="class">
@@ -11,7 +12,7 @@
         <relationship name="detail" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DetailEntity" inverseName="wardrobes" inverseEntity="DetailEntity" syncable="YES"/>
     </entity>
     <elements>
-        <element name="DetailEntity" positionX="-45" positionY="0" width="128" height="90"/>
+        <element name="DetailEntity" positionX="-45" positionY="0" width="128" height="105"/>
         <element name="WardrobesEntity" positionX="223" positionY="26" width="128" height="90"/>
     </elements>
 </model>

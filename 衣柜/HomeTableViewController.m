@@ -58,8 +58,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    [WardrobesData postAllImageToServer];
-    
-    [WardrobesData saveAllData];
+    [WardrobesData restoreAllSources];
+//    [WardrobesData saveAllData];
     NSArray *locald = [WardrobesData localEntities];
     NSLog(@"%@",locald);
 }
