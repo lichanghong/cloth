@@ -57,11 +57,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [WardrobesData postAllUnuploadImageToServer];
-    [WardrobesData restoreAllSourcesSuccess:^{
-        [self.tableView reloadData];
-    }];
-//    [WardrobesData saveAllData];
+ 
     NSArray *locald = [WardrobesData localEntities];
     NSLog(@"%@",locald);
 }

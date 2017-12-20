@@ -38,7 +38,7 @@
 + (void)saveAllData;
 
 //+ (void)postAllDataToServer;
-+ (void)postAllUnuploadImageToServer;
++ (void)postAllUnuploadImageToServerSuccess:(void(^)(void))success;
 + (void)restoreAllSourcesSuccess:(void(^)(void))success;
 + (NSArray *)localEntities;
 

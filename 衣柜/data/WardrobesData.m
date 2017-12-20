@@ -149,6 +149,7 @@ static NSString *QN_DOMAIN=@"http://p0zyyhsy8.bkt.clouddn.com";
 
 + (void)postAllDataToServer
 {
+    [self saveAllData];
     NSString *filePath = [self allDataPath];
     NSData *data = [NSData dataWithContentsOfFile:filePath];
     NSString *token = [self token];
@@ -158,15 +159,17 @@ static NSString *QN_DOMAIN=@"http://p0zyyhsy8.bkt.clouddn.com";
                   NSLog(@"%@", resp);
               } option:nil];
 }
-+ (void)postAllUnuploadImageToServer
++ (void)postAllUnuploadImageToServerSuccess:(void(^)(void))success
 {
+    BOOL has = NO;
     [self postAllDataToServer];
     for (WardrobesEntity*wardrobes in [self entities]) {
         for (DetailEntity *detail in wardrobes.detail) {
             if (detail.uploaded==true) {
                 NSLog(@"uploaded....");
-                return;
+                continue;
             }
+            has = YES;
             NSString *imageP = [[self cachePath] stringByAppendingPathComponent:detail.imagePath];
            NSData *data = [NSData dataWithContentsOfFile:imageP];
             NSString *token = [self token];
@@ -177,8 +180,12 @@ static NSString *QN_DOMAIN=@"http://p0zyyhsy8.bkt.clouddn.com";
                                                     NSLog(@"%@", resp);
                                                     detail.uploaded = true;
                                                     [detail.managedObjectContext MR_saveToPersistentStoreAndWait];
+                                                    success();
                                                 } option:nil];
         }
+    }
+    if (!has) {
+        success();
     }
 }
 

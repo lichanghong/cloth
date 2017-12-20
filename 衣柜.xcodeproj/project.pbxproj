@@ -23,6 +23,7 @@
 		95C9C4081F9F2BB500ACF52D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95C9C4061F9F2BB500ACF52D /* LaunchScreen.storyboard */; };
 		95C9C40B1F9F2BB500ACF52D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C9C40A1F9F2BB500ACF52D /* main.m */; };
 		95C9C4131F9F2CED00ACF52D /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C9C4121F9F2CED00ACF52D /* CollectionViewCell.m */; };
+		95FF0CBA1FEA752A00440B51 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FF0CB91FEA752A00440B51 /* SettingViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,8 @@
 		95C9C4111F9F2CED00ACF52D /* CollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
 		95C9C4121F9F2CED00ACF52D /* CollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
 		95C9C41B1F9F3CE000ACF52D /* 衣柜-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "衣柜-Bridging-Header.h"; sourceTree = "<group>"; };
+		95FF0CB81FEA752A00440B51 /* SettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		95FF0CB91FEA752A00440B51 /* SettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		9DC4AE6C80BAE2593E00ECC5 /* libPods-衣柜.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-衣柜.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A40BC178517234D76149B469 /* Pods-衣柜.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-衣柜.debug.xcconfig"; path = "Pods/Target Support Files/Pods-衣柜/Pods-衣柜.debug.xcconfig"; sourceTree = "<group>"; };
 		A5FF9D7F7039AF3C800E9F7D /* Pods-衣柜.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-衣柜.release.xcconfig"; path = "Pods/Target Support Files/Pods-衣柜/Pods-衣柜.release.xcconfig"; sourceTree = "<group>"; };
@@ -116,6 +119,8 @@
 				957EBFA11FD6588B00D4A503 /* HomeCollectionView.h */,
 				957EBFA21FD6588B00D4A503 /* HomeCollectionView.m */,
 				95C9C4011F9F2BB500ACF52D /* Main.storyboard */,
+				95FF0CB81FEA752A00440B51 /* SettingViewController.h */,
+				95FF0CB91FEA752A00440B51 /* SettingViewController.m */,
 				95C9C4041F9F2BB500ACF52D /* Assets.xcassets */,
 				95C9C4061F9F2BB500ACF52D /* LaunchScreen.storyboard */,
 				95C9C4091F9F2BB500ACF52D /* Info.plist */,
@@ -295,6 +300,7 @@
 				957EBFA31FD6588B00D4A503 /* HomeCollectionView.m in Sources */,
 				953BFFD21FE3B4FE006F39F0 /* KeyArchiver.m in Sources */,
 				95A073781FDE8C150019541A /* Model.xcdatamodeld in Sources */,
+				95FF0CBA1FEA752A00440B51 /* SettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

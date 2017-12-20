@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -88,11 +89,18 @@
                                 <action selector="handleAction:" destination="vep-Lv-m4W" id="ugI-bI-2xn"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="P4W-XS-1LZ">
-                            <connections>
-                                <action selector="handleAction:" destination="vep-Lv-m4W" id="bmB-HL-F3Y"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="refresh" id="FPJ-vZ-HH9">
+                                <connections>
+                                    <segue destination="jd1-JA-hMR" kind="show" id="Jlb-h1-THa"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem style="plain" systemItem="add" id="P4W-XS-1LZ">
+                                <connections>
+                                    <action selector="handleAction:" destination="vep-Lv-m4W" id="bmB-HL-F3Y"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="add" destination="P4W-XS-1LZ" id="key-CH-44e"/>
@@ -102,6 +110,74 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gs3-6B-TMJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-607.20000000000005" y="184.85757121439281"/>
+        </scene>
+        <!--Setting View Controller-->
+        <scene sceneID="Zc7-eZ-MgW">
+            <objects>
+                <viewController id="jd1-JA-hMR" customClass="SettingViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="meO-vg-1xo"/>
+                        <viewControllerLayoutGuide type="bottom" id="Smw-gN-sX6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qJ2-A3-lGb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XL8-Z2-2S1">
+                                <rect key="frame" x="0.0" y="93" width="375" height="30"/>
+                                <state key="normal" title="上传到服务器"/>
+                                <connections>
+                                    <action selector="handleAction:" destination="jd1-JA-hMR" eventType="touchUpInside" id="lpE-NJ-RMz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxw-WT-Zdk">
+                                <rect key="frame" x="0.0" y="131" width="375" height="30"/>
+                                <state key="normal" title="同步到本地"/>
+                                <connections>
+                                    <action selector="handleAction:" destination="jd1-JA-hMR" eventType="touchUpInside" id="JGx-vb-t4F"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p70-aC-oeq">
+                                <rect key="frame" x="0.0" y="169" width="375" height="30"/>
+                                <state key="normal" title="配置服务器"/>
+                                <connections>
+                                    <action selector="handleAction:" destination="jd1-JA-hMR" eventType="touchUpInside" id="L87-lc-G6t"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e8j-hQ-vK2">
+                                <rect key="frame" x="0.0" y="207" width="375" height="30"/>
+                                <state key="normal" title="清除垃圾"/>
+                                <connections>
+                                    <action selector="handleAction:" destination="jd1-JA-hMR" eventType="touchUpInside" id="fbe-7R-MMZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="e8j-hQ-vK2" secondAttribute="trailing" id="7Fr-FC-KWm"/>
+                            <constraint firstItem="zxw-WT-Zdk" firstAttribute="top" secondItem="XL8-Z2-2S1" secondAttribute="bottom" constant="8" id="7mx-9c-WS2"/>
+                            <constraint firstItem="XL8-Z2-2S1" firstAttribute="top" secondItem="meO-vg-1xo" secondAttribute="bottom" constant="29" id="9hh-XZ-HAV"/>
+                            <constraint firstItem="XL8-Z2-2S1" firstAttribute="leading" secondItem="qJ2-A3-lGb" secondAttribute="leading" id="Fve-GL-dfH"/>
+                            <constraint firstAttribute="trailing" secondItem="p70-aC-oeq" secondAttribute="trailing" id="GKQ-cy-9bx"/>
+                            <constraint firstAttribute="trailing" secondItem="zxw-WT-Zdk" secondAttribute="trailing" id="II6-FU-yog"/>
+                            <constraint firstItem="p70-aC-oeq" firstAttribute="leading" secondItem="qJ2-A3-lGb" secondAttribute="leading" id="NVJ-Db-aNQ"/>
+                            <constraint firstItem="e8j-hQ-vK2" firstAttribute="leading" secondItem="qJ2-A3-lGb" secondAttribute="leading" id="ckQ-vH-Ktu"/>
+                            <constraint firstItem="e8j-hQ-vK2" firstAttribute="top" secondItem="p70-aC-oeq" secondAttribute="bottom" constant="8" id="knx-8E-WTp"/>
+                            <constraint firstItem="zxw-WT-Zdk" firstAttribute="leading" secondItem="qJ2-A3-lGb" secondAttribute="leading" id="tAn-Rs-xgV"/>
+                            <constraint firstAttribute="trailing" secondItem="XL8-Z2-2S1" secondAttribute="trailing" id="uD7-j3-mKE"/>
+                            <constraint firstItem="p70-aC-oeq" firstAttribute="top" secondItem="zxw-WT-Zdk" secondAttribute="bottom" constant="8" id="v0h-Ww-9QO"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="clear" destination="e8j-hQ-vK2" id="cmz-ts-USo"/>
+                        <outlet property="local" destination="zxw-WT-Zdk" id="ebY-od-sCr"/>
+                        <outlet property="setting" destination="p70-aC-oeq" id="xYI-az-fxy"/>
+                        <outlet property="upload" destination="XL8-Z2-2S1" id="a7b-xo-0hD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WfE-iy-xau" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="48.799999999999997" y="184.85757121439281"/>
         </scene>
     </scenes>
 </document>
