@@ -145,7 +145,7 @@
 static NSString *scope=@"cloth/images";
 static NSString *AK=@"Z8K4P0VVPHnNTdmDt_ZKFjtsUE73vFVDNUoPyvXX";
 static NSString *SK=@"aldz87U2-FVDfdDlbjiM_fL-drOx0w4No_5k2pLU";
-static NSString *QN_DOMAIN=@"p0zyyhsy8.bkt.clouddn.com";
+static NSString *QN_DOMAIN=@"http://p0zyyhsy8.bkt.clouddn.com";
 
 + (void)postAllDataToServer
 {
@@ -182,7 +182,7 @@ static NSString *QN_DOMAIN=@"p0zyyhsy8.bkt.clouddn.com";
     }
 }
 
-+ (void)restoreAllSources
++ (void)restoreAllSourcesSuccess:(void(^)(void))success
 {
     //clear sqlite
     [WardrobesEntity MR_truncateAll];
@@ -191,23 +191,100 @@ static NSString *QN_DOMAIN=@"p0zyyhsy8.bkt.clouddn.com";
     [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
     //download local data from server
     NSString *alldataURL = [QN_DOMAIN stringByAppendingPathComponent:@"sqlite/alldata"];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+
+    AFHTTPResponseSerializer *serializer =  [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/octet-stream"];
+    manager.responseSerializer = serializer;
+     [manager GET:alldataURL parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if(![NSKeyedArchiver archiveRootObject:responseObject toFile:[self allDataPath]])
+        {
+            NSLog(@"error writeToFile...");
+        }
+        else
+        {
+            NSMutableArray *result = [NSKeyedUnarchiver unarchiveObjectWithData:responseObject];
+            if (result && result.count>0) {
+                for (WardrobesEntityTable *wardrobes in result) {
+                    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext * _Nonnull localContext) {
+                        WardrobesEntity *entity = [WardrobesEntity MR_createEntityInContext:localContext];
+                        entity.index = wardrobes.index;
+                        entity.title = wardrobes.title;
+                        entity.detail = [NSSet set];
+                        if (wardrobes.dets && wardrobes.dets.count>0) {
+                            for (DetailEntityTable *table in wardrobes.dets) {
+                                DetailEntity *detail = [DetailEntity MR_createEntityInContext:localContext];
+                                detail.imagePath = table.imagePath;
+                                detail.index = table.index;
+                                [entity addDetailObject:detail];
+                            }
+                        }
+                    }];
+                }
+                [self downloadImageSuccess:success];
+            }
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
+}
++ (void)downloadImageSuccess:(void(^)(void))success
+{
+    //download image on server
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes =  [NSSet setWithObject:@"image/png"];
+    manager.responseSerializer = serializer;
     
-    [AFHTTPSessionManager manager] GET:"sqlite/alldata" parameters:<#(nullable id)#> progress:<#^(NSProgress * _Nonnull downloadProgress)downloadProgress#> success:<#^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)success#> failure:<#^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)failure#>
-//    for (WardrobesEntity*wardrobes in [self entities]) {
-//        for (DetailEntity *detail in wardrobes.detail) {
-//
-//        }
-//    }
-//    NSString *imageP = [QN_DOMAIN stringByAppendingPathComponent:path];
-//    [[AFHTTPSessionManager manager]GET:imageP parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-//        NSLog(@"downloadProgress");
-//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        NSLog(@"success...=%@",responseObject);
-//
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSLog(@"failure.....=%@",error);
-//
-//    }];
+    
+    NSArray *entities = [WardrobesData entities];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+
+//    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
+    for (WardrobesEntity *entity in entities) {
+        for (DetailEntity *detail in entity.detail) {
+            NSString *imageP = [[self cachePath] stringByAppendingPathComponent:detail.imagePath];
+            NSString *imageurl = [QN_DOMAIN stringByAppendingPathComponent:detail.imagePath];
+
+            if(([fileManager fileExistsAtPath:imageP isDirectory:nil]))
+            {
+                continue;
+            }
+            
+            NSURL *URL = [NSURL URLWithString:imageurl];
+            NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+            
+            NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+                NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+                return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
+            } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+                NSLog(@"File downloaded to: %@", filePath);
+                NSString *cachePath = [[WardrobesData cachePath] stringByAppendingPathComponent:@"images"];
+                NSLog(@"cachepath=%@",cachePath);
+                //文件管理器
+                //把刚刚图片转换的data对象拷贝至沙盒中并保存为image.png
+                BOOL isDic=NO;
+                if(!([fileManager fileExistsAtPath:cachePath isDirectory:&isDic] && isDic))
+                {
+                    [fileManager createDirectoryAtPath:cachePath withIntermediateDirectories:YES attributes:nil error:nil];
+                }
+               NSData *data = [NSData dataWithContentsOfURL:filePath];
+                if ([fileManager createFileAtPath:imageP contents:data attributes:nil]) {
+                    success();
+                }
+//                dispatch_semaphore_signal(semaphore);
+
+            }];
+            [downloadTask resume];
+//            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            NSLog(@"wait....");
+        }
+    }
+    success();
 }
 + (NSString *)token
 {
