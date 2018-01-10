@@ -58,8 +58,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
  
-    NSArray *locald = [WardrobesData localEntities];
-    NSLog(@"%@",locald);
 }
 
 

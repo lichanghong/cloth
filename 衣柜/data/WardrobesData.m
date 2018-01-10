@@ -251,7 +251,7 @@ static NSString *QN_DOMAIN=@"http://p0zyyhsy8.bkt.clouddn.com";
     NSArray *entities = [WardrobesData entities];
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
-//    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
     for (WardrobesEntity *entity in entities) {
         for (DetailEntity *detail in entity.detail) {
             NSString *imageP = [[self cachePath] stringByAppendingPathComponent:detail.imagePath];
@@ -264,7 +264,7 @@ static NSString *QN_DOMAIN=@"http://p0zyyhsy8.bkt.clouddn.com";
             
             NSURL *URL = [NSURL URLWithString:imageurl];
             NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-            
+ 
             NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
                 NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
                 return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
@@ -283,11 +283,11 @@ static NSString *QN_DOMAIN=@"http://p0zyyhsy8.bkt.clouddn.com";
                 if ([fileManager createFileAtPath:imageP contents:data attributes:nil]) {
                     success();
                 }
-//                dispatch_semaphore_signal(semaphore);
+                dispatch_semaphore_signal(semaphore);
 
             }];
             [downloadTask resume];
-//            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
             NSLog(@"wait....");
         }
     }
