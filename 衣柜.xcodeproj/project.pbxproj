@@ -440,7 +440,7 @@
 				DEVELOPMENT_TEAM = ZQQMP3TJXZ;
 				INFOPLIST_FILE = "衣柜/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.mobisentry.client;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.mobisentry.gxgf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "衣柜-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -459,7 +459,7 @@
 				DEVELOPMENT_TEAM = ZQQMP3TJXZ;
 				INFOPLIST_FILE = "衣柜/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.mobisentry.client;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.mobisentry.gxgf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "衣柜-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
